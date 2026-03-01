@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — BellSense</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #e5322d;
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --section-bg: #f9fafb;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111111;
+        --text: #f0f0f0;
+        --muted: #9ca3af;
+        --border: #2a2a2a;
+        --section-bg: #1a1a1a;
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 0 1rem;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 0 5rem;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      text-decoration: none;
+    }
+
+    .logo-dot {
+      width: 28px;
+      height: 28px;
+      background: var(--red);
+      border-radius: 7px;
+    }
+
+    .logo-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .effective-date {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 2.5rem 0 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      font-size: 0.975rem;
+      color: var(--text);
+    }
+
+    ul {
+      margin: 0.5rem 0 1rem 1.25rem;
+      font-size: 0.975rem;
+    }
+
+    ul li {
+      margin-bottom: 0.35rem;
+    }
+
+    .section {
+      background: var(--section-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <a class="logo" href="/">
+        <div class="logo-dot"></div>
+        <span class="logo-name">BellSense</span>
+      </a>
+      <h1>Privacy Policy</h1>
+      <p class="effective-date">Effective Date: February 27, 2026</p>
+    </header>
+
+    <p>BellSense ("we," "our," or "us") operates the BellSense mobile application (the "App"). This Privacy Policy explains how we collect, use, store, and safeguard your information when you use the App.</p>
+
+    <p>We may update this policy periodically. Continued use of the App after changes are posted constitutes your acceptance of the updated policy.</p>
+
+    <div class="section">
+      <h2>1. Overview</h2>
+      <p>This Privacy Policy describes how BellSense collects, uses, and protects your data in connection with the use of the App and related hardware.</p>
+    </div>
+
+    <div class="section">
+      <h2>2. Information We Collect</h2>
+
+      <h3>A. Account Information</h3>
+      <ul>
+        <li>Name</li>
+        <li>Email address</li>
+        <li>Login credentials</li>
+      </ul>
+
+      <h3>B. Workout &amp; Sensor Data</h3>
+      <ul>
+        <li>Repetition counts</li>
+        <li>Exercise type</li>
+        <li>Session duration and timestamps</li>
+        <li>Performance metrics derived from motion sensor (IMU) data</li>
+        <li>Heart rate data (beats per minute, average, peak, and minimum) when a compatible Bluetooth heart rate monitor is connected</li>
+      </ul>
+      <p>Raw continuous IMU streams are not stored. The App communicates with a BLE-connected sensor device to receive motion data; no data is transmitted from the App back to the hardware device.</p>
+
+      <h3>C. User Feedback Data</h3>
+      <ul>
+        <li>Subjective workout feel ratings (1–5 scale)</li>
+        <li>Free-text notes provided by the user to describe or annotate sessions</li>
+        <li>Manual rep count corrections submitted by the user</li>
+      </ul>
+
+      <h3>D. Device &amp; Diagnostic Data</h3>
+      <ul>
+        <li>Device model</li>
+        <li>iOS version</li>
+        <li>App version</li>
+        <li>Crash reports</li>
+        <li>Performance logs</li>
+      </ul>
+
+      <h3>E. Analytics Data</h3>
+      <ul>
+        <li>Usage behavior</li>
+        <li>Feature interaction</li>
+        <li>Aggregated analytics collected via Firebase services</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3. Services Used</h2>
+      <p>BellSense uses Google Firebase for authentication, cloud data storage, analytics, and crash reporting. This includes Firebase Analytics and Crashlytics. Data may be processed on secure cloud infrastructure operated by Google.</p>
+    </div>
+
+    <div class="section">
+      <h2>4. How We Use Information</h2>
+      <p>We use collected information to:</p>
+      <ul>
+        <li>Provide workout tracking functionality</li>
+        <li>Generate performance analytics</li>
+        <li>Sync workout history across devices</li>
+        <li>Improve rep detection and movement classification accuracy using anonymized workout data</li>
+        <li>Debug crashes and improve stability</li>
+        <li>Communicate product updates</li>
+        <li>Respond to user support inquiries</li>
+      </ul>
+      <p>We do not sell personal information.</p>
+    </div>
+
+    <div class="section">
+      <h2>5. Data Storage</h2>
+      <p>Workout and account data are stored locally on your device and in secure cloud infrastructure. Reasonable administrative, technical, and physical safeguards are implemented to protect your data.</p>
+    </div>
+
+    <div class="section">
+      <h2>6. Data Sharing</h2>
+      <p>We do not sell personal information. Data may be shared with service providers strictly for hosting, analytics, infrastructure support, or if required by law.</p>
+    </div>
+
+    <div class="section">
+      <h2>7. Beta Testing</h2>
+      <p>During beta testing via TestFlight, Apple may provide crash logs and limited diagnostic information to assist in improving app performance. This section will be removed upon full App Store release.</p>
+    </div>
+
+    <div class="section">
+      <h2>8. Data Retention &amp; Deletion</h2>
+      <p>We retain personal and workout data only as long as necessary to provide services and comply with legal obligations.</p>
+      <p>Users may delete their account and all associated data at any time directly within the App via <strong>Settings → Delete Account</strong>. Users may also request data deletion by contacting us at <a href="mailto:support@bellsense.app">support@bellsense.app</a>.</p>
+    </div>
+
+    <div class="section">
+      <h2>9. Children's Privacy</h2>
+      <p>BellSense is not intended for individuals under 13 years of age. We do not knowingly collect data from children.</p>
+    </div>
+
+    <div class="section">
+      <h2>10. Contact</h2>
+      <p>For privacy-related inquiries or deletion requests:</p>
+      <p><a href="mailto:support@bellsense.app">support@bellsense.app</a></p>
+      <p>This page at <strong>bellsense.app/privacy</strong> is the authoritative version of this policy.</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 BellSense. All rights reserved.</p>
+    </footer>
+
+  </div>
+</body>
+</html>
