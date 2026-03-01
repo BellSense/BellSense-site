@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BellSense — Kettlebell Training Feedback</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #e5322d;
+      --bg: #111111;
+      --text: #f0f0f0;
+      --muted: #9ca3af;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .logo-dot {
+      width: 48px;
+      height: 48px;
+      background: var(--red);
+      border-radius: 12px;
+      margin: 0 auto 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 360px;
+      line-height: 1.6;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--muted);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-dot"></div>
+  <h1>BellSense</h1>
+  <p>Precision kettlebell training feedback. Coming soon to the App Store.</p>
+
+  <footer>
+    <a href="/privacy">Privacy Policy</a>
+  </footer>
+
+</body>
+</html>
