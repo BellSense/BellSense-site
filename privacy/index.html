@@ -150,7 +150,7 @@
         <span class="logo-name">BellSense</span>
       </a>
       <h1>Privacy Policy</h1>
-      <p class="effective-date">Effective Date: February 27, 2026</p>
+      <p class="effective-date">Effective Date: February 27, 2026 &mdash; Last Updated: March 16, 2026</p>
     </header>
 
     <p>BellSense ("we," "our," or "us") operates the BellSense mobile application (the "App"). This Privacy Policy explains how we collect, use, store, and safeguard your information when you use the App.</p>
@@ -180,7 +180,7 @@
         <li>Performance metrics derived from motion sensor (IMU) data</li>
         <li>Heart rate data (beats per minute, average, peak, and minimum) when a compatible Bluetooth heart rate monitor is connected</li>
       </ul>
-      <p>Raw continuous IMU streams are not stored. The App communicates with a BLE-connected sensor device to receive motion data; no data is transmitted from the App back to the hardware device.</p>
+      <p>The App communicates with a BLE-connected sensor device to receive motion data; no data is transmitted from the App back to the hardware device. If you enable the optional "Contribute Training Data" setting, a raw binary recording of sensor readings from your session may be saved locally and uploaded to our secure cloud infrastructure (see Section 5). This feature is off by default and entirely opt-in.</p>
 
       <h3>C. User Feedback Data</h3>
       <ul>
@@ -208,7 +208,7 @@
 
     <div class="section">
       <h2>3. Services Used</h2>
-      <p>BellSense uses Google Firebase for authentication, cloud data storage, analytics, and crash reporting. This includes Firebase Analytics and Crashlytics. Data may be processed on secure cloud infrastructure operated by Google.</p>
+      <p>BellSense uses Google Firebase for authentication, cloud data storage, file storage, analytics, and crash reporting. This includes Firebase Authentication, Firestore, Firebase Storage, and Crashlytics. Data may be processed on secure cloud infrastructure operated by Google.</p>
     </div>
 
     <div class="section">
@@ -229,33 +229,47 @@
     </div>
 
     <div class="section">
-      <h2>5. Data Storage</h2>
+      <h2>5. Optional Training Data Contribution</h2>
+      <p>You may opt in to contribute anonymized sensor data to help improve BellSense's exercise detection accuracy. This feature is <strong>disabled by default</strong> and can be enabled or disabled at any time via <strong>Settings → Personal Info → Contribute Training Data</strong>.</p>
+
+      <h3>What Is Collected</h3>
+      <p>When opted in, a raw binary recording of IMU (motion sensor) readings captured during your workout session is saved locally on your device and uploaded to our secure cloud infrastructure. These files contain motion sensor data only — no audio, video, location, or personal identifiers are included in the recording.</p>
+
+      <h3>How It Is Used</h3>
+      <p>Uploaded recordings are used solely to improve the accuracy of rep detection, movement classification, and exercise quality scoring. Files are stored under your account ID and are not shared with third parties for any purpose.</p>
+
+      <h3>Opting Out</h3>
+      <p>Disabling the toggle in Settings stops all future captures and uploads immediately. Previously uploaded files are deleted when you delete your account (see Section 8). To request early deletion of previously uploaded sensor files, contact us at <a href="mailto:support@bellsense.app">support@bellsense.app</a>.</p>
+    </div>
+
+    <div class="section">
+      <h2>6. Data Storage</h2>
       <p>Workout and account data are stored locally on your device and in secure cloud infrastructure. Reasonable administrative, technical, and physical safeguards are implemented to protect your data.</p>
     </div>
 
     <div class="section">
-      <h2>6. Data Sharing</h2>
+      <h2>7. Data Sharing</h2>
       <p>We do not sell personal information. Data may be shared with service providers strictly for hosting, analytics, infrastructure support, or if required by law.</p>
-    </div>
-
-    <div class="section">
-      <h2>7. Beta Testing</h2>
-      <p>During beta testing via TestFlight, Apple may provide crash logs and limited diagnostic information to assist in improving app performance. This section will be removed upon full App Store release.</p>
     </div>
 
     <div class="section">
       <h2>8. Data Retention &amp; Deletion</h2>
       <p>We retain personal and workout data only as long as necessary to provide services and comply with legal obligations.</p>
-      <p>Users may delete their account and all associated data at any time directly within the App via <strong>Settings → Delete Account</strong>. Users may also request data deletion by contacting us at <a href="mailto:support@bellsense.app">support@bellsense.app</a>.</p>
+      <p>Users may delete their account and all associated data at any time directly within the App via <strong>Settings → Delete Account</strong>. This includes any uploaded sensor recordings from the optional Training Data Contribution feature. Users may also request data deletion by contacting us at <a href="mailto:support@bellsense.app">support@bellsense.app</a>.</p>
     </div>
 
     <div class="section">
-      <h2>9. Children's Privacy</h2>
+      <h2>9. Beta Testing</h2>
+      <p>During beta testing via TestFlight, Apple may provide crash logs and limited diagnostic information to assist in improving app performance. This section will be removed upon full App Store release.</p>
+    </div>
+
+    <div class="section">
+      <h2>10. Children's Privacy</h2>
       <p>BellSense is not intended for individuals under 13 years of age. We do not knowingly collect data from children.</p>
     </div>
 
     <div class="section">
-      <h2>10. Contact</h2>
+      <h2>11. Contact</h2>
       <p>For privacy-related inquiries or deletion requests:</p>
       <p><a href="mailto:support@bellsense.app">support@bellsense.app</a></p>
       <p>This page at <strong>bellsense.app/privacy</strong> is the authoritative version of this policy.</p>
