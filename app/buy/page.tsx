@@ -25,6 +25,20 @@ export default function BuyPage() {
     if (data.url) window.location.href = data.url
   }
 
+  async function afterAuth(idToken: string) {
+    const res = await fetch('/api/auth/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken }),
+    })
+    const data = await res.json()
+    if (data.hasPurchased) {
+      window.location.href = '/account'
+    } else {
+      await startCheckout(idToken)
+    }
+  }
+
   async function handleEmailAuth(e: React.FormEvent) {
     e.preventDefault()
     setError('')
@@ -38,12 +52,7 @@ export default function BuyPage() {
         cred = await signInWithEmailAndPassword(auth, email, password)
       }
       const idToken = await cred.user.getIdToken()
-      await fetch('/api/auth/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idToken }),
-      })
-      await startCheckout(idToken)
+      await afterAuth(idToken)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Authentication failed')
     } finally {
@@ -58,12 +67,7 @@ export default function BuyPage() {
       const provider = new GoogleAuthProvider()
       const cred = await signInWithPopup(auth, provider)
       const idToken = await cred.user.getIdToken()
-      await fetch('/api/auth/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idToken }),
-      })
-      await startCheckout(idToken)
+      await afterAuth(idToken)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Google sign-in failed')
     } finally {
@@ -148,7 +152,7 @@ export default function BuyPage() {
                 disabled={loading}
                 className="w-full bg-[#e5322d] text-white py-3 rounded-lg font-bold hover:bg-[#cc2d28] transition-colors disabled:opacity-50"
               >
-                {loading ? 'Processing...' : mode === 'signup' ? 'Create account & buy' : 'Sign in & buy'}
+                {loading ? 'Processing...' : mode === 'signup' ? 'Create account & buy' : 'Sign in'}
               </button>
               <button
                 type="button"
