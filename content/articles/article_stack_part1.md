@@ -1,0 +1,64 @@
+# The BellSense Workout Stack — Part 1: Why the Stack Exists
+*bellsense.app/articles/workout-stack-overview*
+
+---
+
+Every BellSense session follows the same structure.
+
+Core. Ballistics. Strength. Mobility.
+
+In that order. Every time.
+
+---
+
+That's not arbitrary.
+
+It's the sequence your body needs to perform at its best — and recover from what you just did.
+
+Each block earns the next.
+
+---
+
+Skip the core work and your ballistics suffer.
+
+Rush through ballistics and your strength work is just fatigue management.
+
+Skip the cooldown and you're leaving recovery on the table.
+
+The stack is the system. You don't get to pick your favorite parts.
+
+---
+
+Here's the logic behind the order.
+
+You prime the core first — because everything downstream depends on it.
+
+You hit ballistics while the nervous system is fresh — because power expression requires it.
+
+You do strength work under accumulated fatigue — because that's where real structural integrity is built.
+
+You finish with mobility and breathwork — because that's how you consolidate what you just did and prepare for what's next.
+
+---
+
+Most people train the opposite way.
+
+They do what they like first. They skip what they don't.
+
+They wonder why they plateau.
+
+---
+
+The stack isn't complicated.
+
+But it is deliberate.
+
+And that deliberateness is what separates a BellSense session from just a workout.
+
+---
+
+In the next five parts we'll break down each block — what it is, why it's there, and how to get the most out of it.
+
+---
+
+*The stack is the system. Trust the order.*

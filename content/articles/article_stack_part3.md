@@ -1,0 +1,70 @@
+# The BellSense Workout Stack — Part 3: Why Abs Before the Main Set?
+*bellsense.app/articles/workout-stack-abs*
+
+---
+
+This is the one people question most.
+
+Why am I doing core work before I swing?
+
+Shouldn't I save something for the main set?
+
+---
+
+No.
+
+---
+
+You cannot generate maximal power from a loose core.
+
+That's not an opinion. That's physics.
+
+The core is the bridge between the lower body and the bell.
+
+If that bridge is soft, power leaks. Every time.
+
+---
+
+Ab work before ballistics isn't pre-fatigue.
+
+It's activation.
+
+You are waking up the muscles that everything else depends on.
+
+Deadbugs. Planks. Carries.
+
+Not to exhaustion — to readiness.
+
+---
+
+Here's what changes when you do this right.
+
+Your first swing set feels different.
+
+More connected. More tension. More power behind the rep.
+
+That's not coincidence.
+
+That's a primed core doing its job.
+
+---
+
+This is also why the breathing block comes first.
+
+Diaphragmatic breathing establishes the brace.
+
+Core activation builds on top of it.
+
+By the time you pick up the bell your body already knows what it's supposed to do.
+
+---
+
+The stack isn't three separate warm-up steps.
+
+It's one continuous preparation.
+
+Each block tightening the system before the real work begins.
+
+---
+
+*Prime the core. Everything else follows.*

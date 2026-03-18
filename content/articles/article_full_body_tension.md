@@ -1,0 +1,74 @@
+# Full-Body Tension: Why Every BellSense Exercise Is a Total Body Exercise
+*bellsense.app/articles/full-body-tension*
+
+---
+
+There are no isolation exercises in BellSense.
+
+Not one.
+
+Every movement — swing, snatch, press, squat — demands everything.
+
+---
+
+Full-body tension is not a cue.
+
+It's the foundation the entire system is built on.
+
+---
+
+Here's what it actually means.
+
+Feet rooted. Glutes firing. Core braced. Lats engaged. Shoulders packed.
+
+From the ground up, every muscle is contributing.
+
+Nothing is slack. Nothing is along for the ride.
+
+---
+
+In ballistics, tension generates power.
+
+A loose body is an energy leak.
+
+The force you produce at the hip has to travel somewhere — and if your core isn't braced, your shoulders aren't packed, your lats aren't engaged, that energy dissipates before it ever reaches the bell.
+
+A tight, organized body transfers power.
+
+That's what velocity measures. That's what your score reflects.
+
+---
+
+In grinds, tension means structural integrity.
+
+Every overhead press, every goblet squat — you are moving load through your body.
+
+If anything in that chain is soft, something else pays for it.
+
+Full tension isn't just about performance. It's about staying healthy enough to keep training.
+
+---
+
+This is also why BellSense will humble you.
+
+A swing with full-body tension at 24kg is harder than a sloppy swing at 32kg.
+
+The sensor knows the difference.
+
+---
+
+Building the habit takes repetition.
+
+Before every set — root, brace, pack, engage.
+
+Then move.
+
+Not the other way around.
+
+---
+
+Lift with intention.
+
+Every rep. Every set.
+
+*That's full-body tension.*

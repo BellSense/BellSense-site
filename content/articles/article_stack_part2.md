@@ -1,0 +1,70 @@
+# The BellSense Workout Stack — Part 2: Breathing Drills
+*bellsense.app/articles/workout-stack-breathing*
+
+---
+
+You probably skip the warm-up.
+
+Most people do.
+
+They show up, grab the bell, and go.
+
+---
+
+Here's what that costs you.
+
+Your nervous system is still in whatever mode you came from.
+
+Stressed. Distracted. Sitting at a desk for eight hours.
+
+That state doesn't disappear just because you walked into the gym.
+
+---
+
+Breathing drills fix that.
+
+Not because breathing is magic.
+
+Because how you breathe is how you move.
+
+---
+
+Diaphragmatic breathing — deep, nasal, into the belly — activates the same bracing pattern you need for every rep.
+
+The connection between breath and tension is direct.
+
+If you can't breathe well at rest, you can't brace well under load.
+
+---
+
+A few minutes of intentional breathing before you train does two things.
+
+It transitions your nervous system out of whatever it was doing.
+
+And it wires in the bracing pattern before the bell is ever in your hands.
+
+---
+
+Nasal breathing matters too.
+
+In through the nose. Out through the nose or mouth depending on intensity.
+
+It keeps you aerobically efficient. It keeps you from spiking into zones you haven't earned yet.
+
+---
+
+This is not a long block.
+
+Five minutes. Maybe less.
+
+But those five minutes change the quality of everything that follows.
+
+---
+
+The warm-up isn't the part before the workout.
+
+It's the first block of the workout.
+
+---
+
+*Breathe first. Move better. That's the sequence.*

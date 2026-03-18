@@ -1,0 +1,166 @@
+'use client'
+import { useState } from 'react'
+import { getClientAuth } from '@/lib/firebase-client'
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth'
+
+export default function BuyPage() {
+  const [mode, setMode] = useState<'idle' | 'signin' | 'signup'>('idle')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  async function startCheckout(idToken: string) {
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken }),
+    })
+    const data = await res.json()
+    if (data.url) window.location.href = data.url
+  }
+
+  async function handleEmailAuth(e: React.FormEvent) {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    try {
+      const auth = getClientAuth()
+      let cred
+      if (mode === 'signup') {
+        cred = await createUserWithEmailAndPassword(auth, email, password)
+      } else {
+        cred = await signInWithEmailAndPassword(auth, email, password)
+      }
+      const idToken = await cred.user.getIdToken()
+      await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      })
+      await startCheckout(idToken)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Authentication failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleGoogle() {
+    setLoading(true)
+    try {
+      const auth = getClientAuth()
+      const provider = new GoogleAuthProvider()
+      const cred = await signInWithPopup(auth, provider)
+      const idToken = await cred.user.getIdToken()
+      await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      })
+      await startCheckout(idToken)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Google sign-in failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="mx-auto max-w-5xl px-4 py-16">
+      <div className="grid sm:grid-cols-2 gap-12 items-start">
+        {/* Product card */}
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+          <div className="w-12 h-12 bg-[#e5322d] rounded-xl mb-6" />
+          <h1 className="text-3xl font-extrabold tracking-tight mb-2">BellSense Sensor</h1>
+          <p className="text-[#9ca3af] mb-6 leading-relaxed">
+            Kettlebell-mounted IMU sensor + iOS app with lifetime access. Seven exercises. Real-time feedback.
+          </p>
+          <div className="text-4xl font-extrabold mb-2">$99</div>
+          <p className="text-sm text-[#9ca3af] mb-8">One-time purchase. No subscription.</p>
+          <ul className="space-y-2 text-sm text-[#9ca3af]">
+            {[
+              'BellSense hardware sensor',
+              'iOS app — lifetime access',
+              '7 exercises tracked',
+              'Per-rep quality scoring',
+              'Program library included',
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <span className="text-[#e5322d]">✓</span> {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Auth / checkout */}
+        <div>
+          <h2 className="text-2xl font-bold mb-6">Get started</h2>
+          {mode === 'idle' && (
+            <div className="space-y-3">
+              <button
+                onClick={handleGoogle}
+                disabled={loading}
+                className="w-full bg-white text-black py-3 px-4 rounded-lg font-medium hover:bg-gray-100 transition-colors disabled:opacity-50"
+              >
+                Continue with Google
+              </button>
+              <button
+                onClick={() => setMode('signup')}
+                className="w-full bg-white/5 border border-white/10 py-3 px-4 rounded-lg font-medium hover:bg-white/10 transition-colors"
+              >
+                Sign up with email
+              </button>
+              <button
+                onClick={() => setMode('signin')}
+                className="w-full text-[#9ca3af] hover:text-[#f0f0f0] transition-colors text-sm py-2"
+              >
+                Already have an account? Sign in
+              </button>
+            </div>
+          )}
+          {(mode === 'signup' || mode === 'signin') && (
+            <form onSubmit={handleEmailAuth} className="space-y-3">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#f0f0f0] placeholder:text-[#9ca3af] focus:outline-none focus:border-[#e5322d]"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#f0f0f0] placeholder:text-[#9ca3af] focus:outline-none focus:border-[#e5322d]"
+              />
+              {error && <p className="text-[#e5322d] text-sm">{error}</p>}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#e5322d] text-white py-3 rounded-lg font-bold hover:bg-[#cc2d28] transition-colors disabled:opacity-50"
+              >
+                {loading ? 'Processing...' : mode === 'signup' ? 'Create account & buy' : 'Sign in & buy'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode('idle')}
+                className="w-full text-[#9ca3af] hover:text-[#f0f0f0] transition-colors text-sm py-1"
+              >
+                ← Back
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}

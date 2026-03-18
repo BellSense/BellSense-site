@@ -1,0 +1,70 @@
+# Why Interval Training?
+*bellsense.app/articles/why-interval-training*
+
+---
+
+Every BellSense session is built around intervals.
+
+Not because it's trendy. Because it works.
+
+And more importantly — because it protects the thing that matters most.
+
+Rep quality.
+
+---
+
+When you train in continuous sets with no structure, fatigue makes the decisions.
+
+You slow down without realizing it.
+
+You shorten the range. You stop driving. You just survive.
+
+Intervals fix that.
+
+Every set has a start, a job, and an end.
+
+You know exactly when you're on and when you're off.
+
+---
+
+That structure keeps you honest.
+
+It forces you to show up fresh to each set — and give it everything.
+
+Then recover. Then do it again.
+
+---
+
+BellSense programs target three energy systems depending on the goal.
+
+**Alactic** — pure power. Short bursts, full recovery. This is where your nervous system learns to fire at maximum output. You can't fake it and you can't sustain it — which is exactly the point.
+
+**Anti-Glycolytic** — power endurance. Incomplete recovery, but you never go so deep into fatigue that quality collapses. The goal is to stay out of the acid. Keep the power. Keep the precision.
+
+**Glycolytic** — capacity. Pushing through accumulating fatigue. Used sparingly. This is the hard zone — but it earns its place when the foundation is already built.
+
+---
+
+Most people live in the glycolytic zone and call it hard work.
+
+It is hard. It's just not always productive.
+
+---
+
+BellSense programs sequence these intentionally.
+
+Build the power first. Build the engine around it.
+
+Not the other way around.
+
+---
+
+Intervals aren't a format.
+
+They're a framework for doing the right work, at the right intensity, for the right duration.
+
+Every time.
+
+---
+
+*Structure protects quality. Quality drives progress. That's the whole system.*

@@ -1,0 +1,62 @@
+# Warning: This App Will Make You Work Harder
+*bellsense.app/articles/warning-this-will-make-you-work-harder*
+
+---
+
+My guess is you're here because something about the title of this article resonated with you.
+
+Why, you may ask, would BellSense make me work harder?
+
+---
+
+This app won't let you cheat anymore.
+
+You can no longer get away with going through the motions.
+
+You can't just swing the bell, press overhead, and call it a workout.
+
+BellSense won't let you.
+
+---
+
+Every set will need to be executed with intention.
+
+Your score, your progression — a direct reflection of the quality of your reps.
+
+How hard you drive. How you hold up across sets. Where the wheels start coming off.
+
+It's all there.
+
+---
+
+This will be hard.
+
+You will discover what a real kettlebell training session feels like.
+
+---
+
+Yes, this probably means dropping a bell size.
+
+Yes, you may regress — temporarily.
+
+---
+
+But that's the magic.
+
+Consistent quality reps, executed with precision, session after session.
+
+That's what builds something real.
+
+Not the grind. Not the suffer-fest. Not the sweat on the floor.
+
+The reps that actually counted.
+
+---
+
+The bell doesn't know you went through the motions.
+
+BellSense does.
+
+---
+
+*Drop the size. Lock in. Make every rep matter.*
