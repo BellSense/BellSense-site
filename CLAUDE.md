@@ -1,7 +1,7 @@
 # BellSense Website — Agent Reference
 
-**Last Updated:** 2026-03-17
-**Status:** Live at bellsense.app — Stripe deferred, content pending
+**Last Updated:** 2026-03-18
+**Status:** Live at bellsense.app — Stripe deferred, articles + program content live
 **Live domain:** bellsense.app (Vercel, connected to this repo's `main` branch)
 
 ---
@@ -71,8 +71,8 @@ bellsense-site/
 │   ├── stripe.ts                       # Stripe SDK — lazy init
 │   └── auth.ts                         # Session cookie helpers (create/get/clear)
 ├── content/
-│   ├── articles/welcome.mdx            # One placeholder article
-│   └── programs/                       # 9 MDX stubs — one per program (frontmatter only)
+│   ├── articles/                       # 15 MDX articles (welcome + 14 editorial pieces)
+│   └── programs/                       # 9 MDX files — frontmatter + full body content
 ├── middleware.ts                       # Edge route protection: /programs/* and /account
 ├── next.config.ts
 ├── tsconfig.json
@@ -139,20 +139,37 @@ archetype: string
 bestFor: string      # one-line description shown on the index card
 ---
 ```
-Body content is empty on all 9 current stubs. Add week-by-week breakdown content in the body when ready.
-
-**Current program stubs:**
+**Current programs (all have full body content):**
 | File | Title | Difficulty |
 |------|-------|------------|
 | `my-first-program.mdx` | My First Program | Beginner |
 | `foundations-30.mdx` | Foundations of Kettlebell Mastery | Beginner |
 | `one-arm-swing-12.mdx` | One Bell Standard | Beginner |
-| `power-endurance-30.mdx` | Power Endurance Builder | Intermediate |
+| `power-endurance-30.mdx` | Power Endurance Builder | Intermediate — stub only, body pending |
 | `road-to-100-snatch.mdx` | Road to 100 (Snatch) | Intermediate |
 | `work-capacity-8.mdx` | Work Capacity Protocol | Intermediate |
 | `iron-continuum-8.mdx` | Iron Continuum | Intermediate |
 | `power-cycle-8.mdx` | Power Cycle | Advanced |
 | `10-minute-engine-8.mdx` | 10-Minute Engine | Advanced |
+
+**Current articles** (all at `/articles/[slug]`):
+| File | Title |
+|------|-------|
+| `welcome.mdx` | Welcome to BellSense |
+| `philosophy.mdx` | Philosophy |
+| `warning-this-will-make-you-work-harder.mdx` | Warning: This App Will Make You Work Harder |
+| `the-pause-button-is-your-friend.mdx` | The Pause Button Is Your Friend |
+| `how-to-get-a-good-score.mdx` | How to Get a Good Score |
+| `why-interval-training.mdx` | Why Interval Training? |
+| `full-body-tension.mdx` | Full-Body Tension |
+| `strength-the-bellsense-way.mdx` | Strength the BellSense Way |
+| `workout-stack-overview.mdx` | The BellSense Workout Stack — Part 1 |
+| `workout-stack-breathing.mdx` | The BellSense Workout Stack — Part 2 |
+| `workout-stack-abs.mdx` | The BellSense Workout Stack — Part 3 |
+| `workout-stack-ballistics.mdx` | The BellSense Workout Stack — Part 4 |
+| `workout-stack-strength.mdx` | The BellSense Workout Stack — Part 5 |
+| `workout-stack-cooldown.mdx` | The BellSense Workout Stack — Part 6 |
+| `taking-care-of-your-hands.mdx` | Taking Care of Your Hands |
 
 ---
 
@@ -199,8 +216,8 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 
 ### Content (post-launch or pre-launch)
 
-- [ ] **Program detail content** — fill in MDX body for each of the 9 programs in `content/programs/`. Week-by-week breakdown, session descriptions, coaching notes. Refer to `programs.json` in the iOS app and `/Long Range Strategy Docs/program_template_spec.md`.
-- [ ] **Articles** — write real articles beyond the `welcome.mdx` stub. Good candidates: "How BellSense counts reps", "What is velocity retention?", "Hardstyle swing technique fundamentals".
+- [x] **Program detail content** — done 2026-03-18. 8 of 9 programs have full MDX body (philosophy, week-by-week, success criteria, next program). `power-endurance-30.mdx` is still a frontmatter-only stub.
+- [x] **Articles** — done 2026-03-18. 14 editorial articles live covering philosophy, score, interval training, full-body tension, strength, the workout stack series (6 parts), and hand care.
 - [ ] **Homepage copy** — current copy is placeholder. Refine hero headline, value props, and CTA once product positioning is locked.
 - [ ] **OG image / social card** — add `public/og.png` and update `app/layout.tsx` metadata with `openGraph.images`.
 
