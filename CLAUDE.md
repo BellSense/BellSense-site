@@ -1,7 +1,7 @@
 # BellSense Website — Agent Reference
 
-**Last Updated:** 2026-03-16
-**Status:** Scaffolded, build clean — not yet deployed to production
+**Last Updated:** 2026-03-17
+**Status:** Live at bellsense.app — Stripe deferred, content pending
 **Live domain:** bellsense.app (Vercel, connected to this repo's `main` branch)
 
 ---
@@ -188,9 +188,10 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 
 ### Before first deploy (blockers)
 
-- [ ] **Set env vars in Vercel** — all variables from `.env.local.example` must be added to Vercel → Settings → Environment Variables. Use `sk_live_` / `pk_live_` Stripe keys for production.
+- [x] **Set env vars in Vercel** — done 2026-03-17. Firebase + session cookie set. Stripe vars left blank (deferred).
+- [x] **Deploy to Vercel** — done 2026-03-17. Live at bellsense.app + www.bellsense.app.
 - [ ] **Set real Stripe price** — update `unit_amount: 9900` in `app/api/checkout/route.ts` to the actual hardware price.
-- [ ] **Set App Store link** — replace `href="https://apps.apple.com"` placeholder in `app/account/page.tsx` with the real TestFlight or App Store URL.
+- [ ] **Set App Store link** — replace `href="https://apps.apple.com"` placeholder in `app/account/page.tsx` with the real App Store URL.
 - [ ] **Register Stripe webhook** — in Stripe dashboard, add endpoint `https://bellsense.app/api/webhooks/stripe` for event `checkout.session.completed`. Copy the webhook signing secret → `STRIPE_WEBHOOK_SECRET`.
 - [ ] **Firebase Storage security rules** — manually set rules in Firebase console so `training/{userId}/{fileName}` is locked to `request.auth.uid == userId`. (iOS opt-in training data feature.)
 - [ ] **Test full purchase flow end-to-end** — sign up → Stripe test checkout → confirm webhook fires → Firestore `hasPurchased: true` → `/account` shows success banner → `/programs` accessible.
