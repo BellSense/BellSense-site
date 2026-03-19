@@ -16,7 +16,7 @@ export default function Nav() {
   }, [])
 
   return (
-    <nav className="border-b border-white/10 bg-[#111111]">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#111111]/80 backdrop-blur-md">
       <div className="mx-auto max-w-5xl px-4 flex items-center justify-between h-14">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-6 h-6 bg-[#e5322d] rounded-md" />
