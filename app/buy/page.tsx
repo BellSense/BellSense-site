@@ -46,7 +46,7 @@ export default function BuyPage() {
     setLoading(true)
     try {
       const auth = getClientAuth()
-      const trimmedEmail = email.trim()
+      const trimmedEmail = email.trim().toLowerCase()
       let cred
       if (mode === 'signup') {
         cred = await createUserWithEmailAndPassword(auth, trimmedEmail, password)
@@ -142,6 +142,9 @@ export default function BuyPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#f0f0f0] placeholder:text-[#9ca3af] focus:outline-none focus:border-[#e5322d]"
               />
               <input
