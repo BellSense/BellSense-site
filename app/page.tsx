@@ -130,26 +130,26 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 gap-6">
             {[
               {
-                image: '/screenshots/main.png',
-                position: 'center 35%',
+                image: '/screenshots/main-picture.png',
+                position: 'center 30%',
                 title: 'Rep Counting',
                 body: 'Only real reps count. If it didn\'t move with intent, it doesn\'t register.',
               },
               {
-                image: '/screenshots/analytics.png',
-                position: 'center 60%',
+                image: '/screenshots/velocity-power.png',
+                position: 'center 20%',
                 title: 'Velocity & Power',
                 body: 'See exactly how explosive each rep is and watch what happens to power as fatigue sets in.',
               },
               {
-                image: '/screenshots/results.png',
-                position: 'center 55%',
+                image: '/screenshots/junk-rep.png',
+                position: 'center 25%',
                 title: 'Junk Rep Detection',
                 body: 'Know when your output has degraded enough that more reps aren\'t building — they\'re just burning.',
               },
               {
-                image: '/screenshots/programs.png',
-                position: 'center 55%',
+                image: '/screenshots/session-score.png',
+                position: 'center 15%',
                 title: 'Session Score',
                 body: 'The honest number. Not a summary — an accountability score. Quality, intention, and consistency in one figure.',
               },
