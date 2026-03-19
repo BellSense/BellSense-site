@@ -24,14 +24,14 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { content, data } = matter(raw)
   return (
-    <div className="mx-auto max-w-2xl px-4 py-16">
-      <div className="flex items-center gap-2 text-sm text-[#9ca3af] mb-4">
+    <div className="mx-auto max-w-2xl px-6 py-20 sm:py-28">
+      <div className="flex items-center gap-2 text-sm text-[#9ca3af] mb-8">
         <a href="/programs" className="hover:text-[#f0f0f0]">Programs</a>
         <span>/</span>
         <span>{data.title}</span>
       </div>
-      <h1 className="text-3xl font-extrabold tracking-tight mb-2">{data.title}</h1>
-      <div className="flex gap-3 text-sm text-[#9ca3af] mb-10">
+      <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-5 leading-tight">{data.title}</h1>
+      <div className="flex flex-wrap gap-3 text-sm text-[#9ca3af] mb-14">
         <span>{data.difficulty}</span>
         <span>·</span>
         <span>{data.weeks} weeks</span>
@@ -41,7 +41,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
         <span>{data.archetype}</span>
       </div>
       {content.trim() ? (
-        <article className="prose prose-invert prose-sm max-w-none">
+        <article className="prose prose-invert prose-base max-w-none prose-p:leading-relaxed prose-p:mb-6 prose-h2:mt-12 prose-h2:mb-4 prose-h3:mt-8 prose-h3:mb-3 prose-ul:my-6 prose-li:my-2 prose-hr:my-10">
           <MDXRemote source={content} />
         </article>
       ) : (
