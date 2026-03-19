@@ -1,3 +1,10 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'FAQ — BellSense',
+  description: 'Common questions about the BellSense sensor, iOS app, compatible exercises, and pricing.',
+}
+
 const faqs = [
   {
     q: 'What exercises does BellSense track?',
@@ -9,7 +16,7 @@ const faqs = [
   },
   {
     q: 'What kettlebells are compatible?',
-    a: 'BellSense mounts to any standard kettlebell handle. No modifications required.',
+    a: 'BellSense mounts beneath the kettlebell handle. No modifications required.',
   },
   {
     q: 'Does it work without the sensor?',

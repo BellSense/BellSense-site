@@ -1,5 +1,12 @@
+import type { Metadata } from 'next'
 import { getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
+import SignOutButton from '@/components/SignOutButton'
+
+export const metadata: Metadata = {
+  title: 'Account — BellSense',
+  description: 'Manage your BellSense account and access your training programs.',
+}
 
 export default async function AccountPage({ searchParams }: { searchParams: Promise<{ success?: string }> }) {
   const session = await getSession()
@@ -28,11 +35,12 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
         </div>
         <div className="bg-white/5 border border-white/10 rounded-xl p-6">
           <h2 className="font-bold mb-1">Programs</h2>
-          <p className="text-[#9ca3af] text-sm mb-4">Access all 8 training programs</p>
+          <p className="text-[#9ca3af] text-sm mb-4">Access all 9 training programs</p>
           <a href="/programs" className="text-[#e5322d] text-sm font-medium hover:underline">
             Browse programs →
           </a>
         </div>
+        <SignOutButton />
       </div>
     </div>
   )
