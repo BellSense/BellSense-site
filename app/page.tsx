@@ -93,7 +93,7 @@ export default function HomePage() {
               {
                 step: '1',
                 title: 'Mount the sensor',
-                body: 'Clip the sensor to your kettlebell handle.',
+                body: 'Attach BellSense to the kettlebell beneath the handle.',
               },
               {
                 step: '2',
@@ -181,7 +181,7 @@ export default function HomePage() {
           <p className="text-[#9ca3af] text-center mb-10 max-w-xl mx-auto">
             Not a demographic. An attitude.
           </p>
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {[
               {
                 title: 'Tired of junk volume',
@@ -194,6 +194,10 @@ export default function HomePage() {
               {
                 title: 'Ready to be held accountable',
                 body: 'You\'re not looking for encouragement. You\'re looking for an honest mirror. BellSense won\'t tell you what you want to hear.',
+              },
+              {
+                title: 'Wants real coaching',
+                body: 'Not a cheerleader. Not a streak counter. Objective, actionable data on every rep — because that\'s what actually moves the needle.',
               },
             ].map((card) => (
               <div key={card.title} className="bg-white/5 border border-white/10 rounded-xl p-6">
