@@ -1,6 +1,6 @@
 # BellSense Website — Agent Reference
 
-**Last Updated:** 2026-03-18 (session 3)
+**Last Updated:** 2026-03-18 (session 4)
 **Status:** Live at bellsense.app — Stripe deferred, articles + program content live
 **Live domain:** bellsense.app (Vercel, connected to this repo's `main` branch)
 
@@ -226,6 +226,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 - [x] **Articles** — done 2026-03-18. 14 editorial articles live covering philosophy, score, interval training, full-body tension, strength, the workout stack series (6 parts), and hand care.
 - [x] **Homepage copy** — done 2026-03-18 (session 3). Full philosophy-first overhaul: "The sensor doesn't lie" hero, junk-rep problem framing, accountability solution, feature copy rewrite, mindset-based use cases, "Make every rep matter" final CTA. Source: `landing-page-copy-audit.md`.
 - [ ] **OG image / social card** — add `public/og.png` and update `app/layout.tsx` metadata with `openGraph.images`.
+- [ ] **Feature card screenshots** — cards are currently text-only. When better app screenshots are available, redesign as full-width image-on-top layout (small thumbnails don't work for data-heavy UI). New screenshots already in `public/screenshots/`: `session-score.png`, `velocity-power.png`, `junk-rep.png`, `main-picture.png`.
 
 ### Near-term features
 
