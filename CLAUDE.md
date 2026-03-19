@@ -265,6 +265,17 @@ npm run build    # verify no type errors before pushing
 
 ---
 
+## UI & Styling Notes
+
+- **Tailwind v4 plugins**: Added via `@plugin "..."` in `globals.css`, NOT in a config file. e.g. `@plugin "@tailwindcss/typography"`.
+- **Typography plugin**: `@tailwindcss/typography` is installed and registered. Use `prose prose-invert prose-base` on `<article>` elements — do not use `prose-sm`.
+- **Font**: Geist (`geist` npm package) — imported as `GeistSans` from `geist/font/sans`, applied via `.variable` on `<html>` and `--font-sans` token in `@theme`.
+- **Noise texture**: Full-screen `body::before` pseudo-element in `globals.css` at `opacity: 0.035`. Nav/main/footer have `position: relative; z-index: 1` to sit above it.
+- **Nav**: Sticky, `backdrop-blur-md`, `bg-[#111111]/80`. Auth state via `onAuthStateChanged` — renders nothing during load to avoid flash.
+- **Card hover pattern**: `border-l-2 border-l-white/10 hover:border-l-[#e5322d] hover:bg-white/[0.07]` + `group`/`group-hover:text-white` for editorial left-border treatment.
+
+---
+
 ## Key Decisions (do not change without understanding the consequences)
 
 1. **Tailwind v4** — no `tailwind.config.ts`. Tokens live in `app/globals.css`. Do not add a config file.
