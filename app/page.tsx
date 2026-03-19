@@ -130,47 +130,28 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 gap-6">
             {[
               {
-                image: '/screenshots/main-picture.png',
-                position: 'center 30%',
                 title: 'Rep Counting',
                 body: 'Only real reps count. If it didn\'t move with intent, it doesn\'t register.',
               },
               {
-                image: '/screenshots/velocity-power.png',
-                position: 'center 20%',
                 title: 'Velocity & Power',
                 body: 'See exactly how explosive each rep is and watch what happens to power as fatigue sets in.',
               },
               {
-                image: '/screenshots/junk-rep.png',
-                position: 'center 25%',
                 title: 'Junk Rep Detection',
                 body: 'Know when your output has degraded enough that more reps aren\'t building — they\'re just burning.',
               },
               {
-                image: '/screenshots/session-score.png',
-                position: 'center 15%',
                 title: 'Session Score',
                 body: 'The honest number. Not a summary — an accountability score. Quality, intention, and consistency in one figure.',
               },
             ].map((card) => (
               <div
                 key={card.title}
-                className="bg-white/5 border border-white/10 rounded-xl p-6 flex gap-5 items-start"
+                className="bg-white/5 border border-white/10 rounded-xl p-6"
               >
-                <div className="relative shrink-0 w-[90px] rounded-lg overflow-hidden" style={{ height: '196px' }}>
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    className="object-cover"
-                    style={{ objectPosition: card.position }}
-                  />
-                </div>
-                <div className="pt-1">
-                  <h3 className="font-bold text-lg mb-2">{card.title}</h3>
-                  <p className="text-[#9ca3af] text-sm leading-relaxed">{card.body}</p>
-                </div>
+                <h3 className="font-bold text-lg mb-2">{card.title}</h3>
+                <p className="text-[#9ca3af] text-sm leading-relaxed">{card.body}</p>
               </div>
             ))}
           </div>
