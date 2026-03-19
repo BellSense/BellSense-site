@@ -4,9 +4,26 @@ import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
+const baseUrl = 'https://bellsense.app'
+
 export const metadata: Metadata = {
   title: 'BellSense — Kettlebell Training Feedback',
   description: 'Real-time rep counting and quality scoring for kettlebell training.',
+  metadataBase: new URL(baseUrl),
+  openGraph: {
+    title: "BellSense — The sensor doesn't lie.",
+    description: 'Real-time rep counting and quality scoring. No junk reps.',
+    url: baseUrl,
+    siteName: 'BellSense',
+    images: [{ url: '/api/og', width: 1200, height: 630, alt: 'BellSense — The sensor doesn\'t lie.' }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "BellSense — The sensor doesn't lie.",
+    description: 'Real-time rep counting and quality scoring. No junk reps.',
+    images: ['/api/og'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
