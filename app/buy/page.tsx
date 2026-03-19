@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from 'firebase/auth'
 
 export default function BuyPage() {
@@ -13,6 +14,7 @@ export default function BuyPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [resetSent, setResetSent] = useState(false)
   const [loading, setLoading] = useState(false)
 
   async function startCheckout(idToken: string) {
@@ -63,6 +65,18 @@ export default function BuyPage() {
       else setError(err instanceof Error ? err.message : 'Authentication failed')
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleForgotPassword() {
+    if (!email) { setError('Enter your email above first.'); return }
+    try {
+      const auth = getClientAuth()
+      await sendPasswordResetEmail(auth, email.trim().toLowerCase())
+      setResetSent(true)
+      setError('')
+    } catch {
+      setError('Could not send reset email. Check the address and try again.')
     }
   }
 
@@ -156,6 +170,7 @@ export default function BuyPage() {
                 className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#f0f0f0] placeholder:text-[#9ca3af] focus:outline-none focus:border-[#e5322d]"
               />
               {error && <p className="text-[#e5322d] text-sm">{error}</p>}
+              {resetSent && <p className="text-green-400 text-sm">Password reset email sent — check your inbox.</p>}
               <button
                 type="submit"
                 disabled={loading}
@@ -163,6 +178,15 @@ export default function BuyPage() {
               >
                 {loading ? 'Processing...' : mode === 'signup' ? 'Create account & buy' : 'Sign in'}
               </button>
+              {mode === 'signin' && (
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  className="w-full text-[#9ca3af] hover:text-[#f0f0f0] transition-colors text-sm py-1"
+                >
+                  Forgot password?
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => setMode('idle')}
