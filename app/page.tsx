@@ -8,9 +8,12 @@ export default function HomePage() {
       <section className="mx-auto max-w-5xl px-4 py-20 sm:py-28">
         <div className="flex flex-col sm:flex-row items-center gap-12">
           <div className="flex-1 text-center sm:text-left">
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-5 leading-tight">
+            <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight mb-5 leading-[1.05]">
               Turn Your Kettlebell Into a{' '}
-              <span className="text-[#e5322d]">Smart Training System</span>
+              <span className="relative inline-block text-[#e5322d]">
+                Smart Training System
+                <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-[#e5322d] rounded-full opacity-40" />
+              </span>
             </h1>
             <p className="text-lg text-[#9ca3af] mb-8 leading-relaxed max-w-lg">
               Track every rep, measure power, and see your performance improve in real time.
@@ -102,12 +105,13 @@ export default function HomePage() {
                 body: 'Rep counts, power, and fatigue trends — live and post-session.',
               },
             ].map((s) => (
-              <div key={s.step} className="flex gap-4">
-                <div className="w-8 h-8 bg-[#e5322d] rounded-full flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">
+              <div key={s.step} className="relative pl-4 pt-2">
+                <div className="absolute top-0 left-0 text-[7rem] font-extrabold leading-none text-white/[0.04] select-none pointer-events-none">
                   {s.step}
                 </div>
-                <div>
-                  <h3 className="font-bold mb-1">{s.title}</h3>
+                <div className="relative">
+                  <div className="text-[#e5322d] font-bold text-xs uppercase tracking-widest mb-2">Step {s.step}</div>
+                  <h3 className="font-bold text-lg mb-1">{s.title}</h3>
                   <p className="text-[#9ca3af] text-sm leading-relaxed">{s.body}</p>
                 </div>
               </div>

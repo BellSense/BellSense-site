@@ -58,9 +58,9 @@ export default function ArticlesPage() {
           <Link
             key={a.slug}
             href={`/articles/${a.slug}`}
-            className="block bg-white/5 border border-white/10 rounded-xl p-6 hover:border-white/20 transition-colors"
+            className="group block bg-white/5 border border-white/10 border-l-2 border-l-white/10 rounded-xl p-6 hover:border-l-[#e5322d] hover:bg-white/[0.07] transition-all duration-200"
           >
-            <h2 className="font-bold mb-1">{a.title}</h2>
+            <h2 className="font-bold mb-1 group-hover:text-white transition-colors">{a.title}</h2>
             <p className="text-[#9ca3af] text-sm">{a.description}</p>
           </Link>
         ))}

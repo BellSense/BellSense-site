@@ -66,7 +66,7 @@ export default async function ProgramsPage() {
                   )}
                 </div>
               </div>
-              <h2 className="font-bold mb-1">{p.title}</h2>
+              <h2 className="font-bold mb-1 group-hover:text-white transition-colors">{p.title}</h2>
               <p className="text-[#9ca3af] text-sm">{p.bestFor}</p>
             </>
           )
@@ -76,7 +76,7 @@ export default async function ProgramsPage() {
               <Link
                 key={p.slug}
                 href={`/programs/${p.slug}`}
-                className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-white/20 transition-colors"
+                className="group bg-white/5 border border-white/10 border-l-2 border-l-white/10 rounded-xl p-6 hover:border-l-[#e5322d] hover:bg-white/[0.07] transition-all duration-200"
               >
                 {cardContent}
               </Link>
