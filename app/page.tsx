@@ -219,10 +219,9 @@ export default function HomePage() {
       {/* Simple CTA section */}
       <section className="border-t border-white/10">
         <div className="mx-auto max-w-5xl px-4 py-16 text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight mb-3">
-            One sensor. Lifetime access.
+          <h2 className="text-3xl font-extrabold tracking-tight mb-8">
+            One Sensor. Lifetime Access.
           </h2>
-          <p className="text-[#9ca3af] mb-8">Hardware + full iOS app. No subscription.</p>
           <Link
             href="/buy"
             className="inline-block bg-[#e5322d] text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#cc2d28] transition-colors"
