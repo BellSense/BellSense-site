@@ -9,11 +9,13 @@ async function getAdminApp() {
     _adminApp = getApps()[0]
     return _adminApp
   }
+  const rawKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY ?? ''
+  const privateKey = rawKey.trim().replace(/^["']|["']$/g, '').replace(/\\n/g, '\n')
   _adminApp = initializeApp({
     credential: cert({
       projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
       clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      privateKey,
     }),
   })
   return _adminApp
