@@ -32,6 +32,7 @@ export default function BuyPage() {
       body: JSON.stringify({ idToken }),
     })
     const data = await res.json()
+    if (!res.ok) throw new Error(data.error ?? `Session error (${res.status})`)
     if (data.hasPurchased) {
       window.location.href = '/account'
     } else {
