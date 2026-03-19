@@ -8,15 +8,16 @@ export default function HomePage() {
       <section className="mx-auto max-w-5xl px-4 py-20 sm:py-28">
         <div className="flex flex-col sm:flex-row items-center gap-12">
           <div className="flex-1 text-center sm:text-left">
+            <p className="text-[#e5322d] text-xs font-bold uppercase tracking-widest mb-4">No junk reps.</p>
             <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight mb-5 leading-[1.05]">
-              Turn Your Kettlebell Into a{' '}
+              The sensor{' '}
               <span className="relative inline-block text-[#e5322d]">
-                Smart Training System
+                doesn&apos;t lie.
                 <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-[#e5322d] rounded-full opacity-40" />
               </span>
             </h1>
             <p className="text-lg text-[#9ca3af] mb-8 leading-relaxed max-w-lg">
-              Track every rep, measure power, and see your performance improve in real time.
+              BellSense measures every rep. There&apos;s nowhere to hide — and that&apos;s exactly the point.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
               <Link
@@ -53,14 +54,14 @@ export default function HomePage() {
         <div className="mx-auto max-w-5xl px-4 py-16">
           <div className="grid sm:grid-cols-2 gap-8">
             <div className="bg-white/5 border border-white/10 rounded-xl p-8">
-              <h2 className="text-lg font-bold mb-5 text-[#9ca3af] uppercase tracking-wide text-sm">
+              <h2 className="text-sm font-bold mb-5 text-[#9ca3af] uppercase tracking-wide">
                 The problem
               </h2>
               <ul className="space-y-4">
                 {[
-                  "You don't know if your swings are improving",
-                  'You lose power across sets without realizing',
-                  'No feedback = wasted training',
+                  'Most people are just moving weight — going through the motions',
+                  'Junk reps accumulate fatigue without building real output',
+                  'Without honest feedback, you can\'t tell the difference',
                 ].map((item) => (
                   <li key={item} className="flex gap-3 text-[#f0f0f0]">
                     <span className="text-[#e5322d] font-bold mt-0.5">✕</span>
@@ -70,11 +71,11 @@ export default function HomePage() {
               </ul>
             </div>
             <div className="bg-[#e5322d]/10 border border-[#e5322d]/30 rounded-xl p-8 flex flex-col justify-center">
-              <h2 className="text-lg font-bold mb-4 text-[#e5322d] uppercase tracking-wide text-sm">
+              <h2 className="text-sm font-bold mb-4 text-[#e5322d] uppercase tracking-wide">
                 The solution
               </h2>
               <p className="text-xl font-semibold leading-snug">
-                BellSense gives you objective feedback on every rep — automatically.
+                BellSense won&apos;t let you cheat anymore. Every rep is measured. Every session is scored. The bell doesn&apos;t know you went through the motions — BellSense does.
               </p>
             </div>
           </div>
@@ -132,25 +133,25 @@ export default function HomePage() {
                 image: '/screenshots/main.png',
                 position: 'center 35%',
                 title: 'Rep Counting',
-                body: 'Near-zero false positives. Counts only real reps.',
+                body: 'Only real reps count. If it didn\'t move with intent, it doesn\'t register.',
               },
               {
                 image: '/screenshots/analytics.png',
                 position: 'center 60%',
                 title: 'Velocity & Power',
-                body: 'See how explosive each rep is and whether power holds across sets.',
+                body: 'See exactly how explosive each rep is and watch what happens to power as fatigue sets in.',
               },
               {
                 image: '/screenshots/results.png',
                 position: 'center 55%',
-                title: 'Fatigue Tracking',
-                body: 'Know exactly when performance drops off — before it costs you a set.',
+                title: 'Junk Rep Detection',
+                body: 'Know when your output has degraded enough that more reps aren\'t building — they\'re just burning.',
               },
               {
                 image: '/screenshots/programs.png',
                 position: 'center 55%',
                 title: 'Session Score',
-                body: 'One number that reflects your workout quality, every session.',
+                body: 'The honest number. Not a summary — an accountability score. Quality, intention, and consistency in one figure.',
               },
             ].map((card) => (
               <div
@@ -179,10 +180,10 @@ export default function HomePage() {
       {/* Social Proof */}
       <section className="border-t border-white/10">
         <div className="mx-auto max-w-5xl px-4 py-16 text-center">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-lg font-semibold mb-4">
-            <span>Built for serious training</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-lg font-semibold mb-4">
+            <span>The bell doesn&apos;t lie.</span>
             <span className="text-[#e5322d] hidden sm:inline">·</span>
-            <span>Designed by lifters, not influencers</span>
+            <span>BellSense keeps you honest.</span>
           </div>
           <p className="text-[#9ca3af] text-sm">
             Testimonials coming as early users share their experience.
@@ -190,25 +191,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Use Cases */}
+      {/* Who it's for — mindset framing */}
       <section className="border-t border-white/10">
         <div className="mx-auto max-w-5xl px-4 py-16">
-          <h2 className="text-3xl font-extrabold tracking-tight mb-10 text-center">
+          <h2 className="text-3xl font-extrabold tracking-tight mb-4 text-center">
             Who it&apos;s for
           </h2>
+          <p className="text-[#9ca3af] text-center mb-10 max-w-xl mx-auto">
+            Not a demographic. An attitude.
+          </p>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
               {
-                title: 'Strength athletes',
-                body: 'Track velocity, power, and fatigue to know when to push and when to back off.',
+                title: 'Tired of junk volume',
+                body: 'You\'ve done the high-rep grind. You know the difference between accumulated fatigue and real output. You want to train less and get more.',
               },
               {
-                title: 'Tactical / military',
-                body: 'Objective performance data for high-rep kettlebell work. No guessing.',
+                title: 'Want to understand why',
+                body: 'You don\'t just want to move weight — you want to know if it\'s working. Objective data over gut feel, every session.',
               },
               {
-                title: 'General fitness',
-                body: 'Real performance data every session — not just feel and rep counts.',
+                title: 'Ready to be held accountable',
+                body: 'You\'re not looking for encouragement. You\'re looking for an honest mirror. BellSense won\'t tell you what you want to hear.',
               },
             ].map((card) => (
               <div key={card.title} className="bg-white/5 border border-white/10 rounded-xl p-6">
@@ -239,7 +243,7 @@ export default function HomePage() {
       <section className="border-t border-white/10 bg-white/[0.02]">
         <div className="mx-auto max-w-5xl px-4 py-16 text-center">
           <p className="text-[#9ca3af] text-sm uppercase tracking-widest mb-4 font-medium">
-            Train with data. Perform with intent.
+            Make every rep matter.
           </p>
           <Link
             href="/buy"
