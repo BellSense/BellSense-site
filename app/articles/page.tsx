@@ -10,10 +10,27 @@ interface ArticleMeta {
   description: string
 }
 
+const ARTICLE_ORDER = [
+  'philosophy',
+  'warning-this-will-make-you-work-harder',
+  'the-pause-button-is-your-friend',
+  'how-to-get-a-good-score',
+  'why-interval-training',
+  'full-body-tension',
+  'strength-the-bellsense-way',
+  'workout-stack-overview',
+  'workout-stack-breathing',
+  'workout-stack-abs',
+  'workout-stack-ballistics',
+  'workout-stack-strength',
+  'workout-stack-cooldown',
+  'taking-care-of-your-hands',
+]
+
 function getArticles(): ArticleMeta[] {
   const dir = path.join(process.cwd(), 'content/articles')
   if (!fs.existsSync(dir)) return []
-  return fs
+  const articles = fs
     .readdirSync(dir)
     .filter((f) => f.endsWith('.mdx'))
     .map((f) => {
@@ -21,7 +38,14 @@ function getArticles(): ArticleMeta[] {
       const { data } = matter(raw)
       return data as ArticleMeta
     })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  return articles.sort((a, b) => {
+    const ai = ARTICLE_ORDER.indexOf(a.slug)
+    const bi = ARTICLE_ORDER.indexOf(b.slug)
+    if (ai === -1 && bi === -1) return 0
+    if (ai === -1) return 1
+    if (bi === -1) return -1
+    return ai - bi
+  })
 }
 
 export default function ArticlesPage() {
