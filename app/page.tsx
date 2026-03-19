@@ -37,12 +37,11 @@ export default function HomePage() {
           <div className="shrink-0 w-[240px] sm:w-[280px]">
             <div className="relative w-full" style={{ height: '520px' }}>
               <Image
-                src="/screenshots/main.png"
+                src="/screenshots/main-picture.png"
                 alt="BellSense active workout tracking screen"
                 fill
                 priority
                 className="object-cover rounded-2xl"
-                style={{ objectPosition: 'center 35%' }}
               />
             </div>
           </div>
@@ -132,26 +131,44 @@ export default function HomePage() {
               {
                 title: 'Rep Counting',
                 body: 'Only real reps count. If it didn\'t move with intent, it doesn\'t register.',
+                image: '/screenshots/main-picture.png',
+                imageAlt: 'BellSense live workout tracking screen',
               },
               {
                 title: 'Velocity & Power',
                 body: 'See exactly how explosive each rep is and watch what happens to power as fatigue sets in.',
+                image: '/screenshots/velocity-power.png',
+                imageAlt: 'Power by round chart and rep metrics scatter plot',
               },
               {
                 title: 'Junk Rep Detection',
                 body: 'Know when your output has degraded enough that more reps aren\'t building — they\'re just burning.',
+                image: '/screenshots/junk-rep.png',
+                imageAlt: 'Session summary highlighting velocity drop detection',
               },
               {
                 title: 'Session Score',
                 body: 'The honest number. Not a summary — an accountability score. Quality, intention, and consistency in one figure.',
+                image: '/screenshots/session-score.png',
+                imageAlt: 'Session score gauge showing 76/100 in the Training Zone',
               },
             ].map((card) => (
               <div
                 key={card.title}
-                className="bg-white/5 border border-white/10 rounded-xl p-6"
+                className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
               >
-                <h3 className="font-bold text-lg mb-2">{card.title}</h3>
-                <p className="text-[#9ca3af] text-sm leading-relaxed">{card.body}</p>
+                <div className="relative h-72 bg-black">
+                  <Image
+                    src={card.image}
+                    alt={card.imageAlt}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-lg mb-2">{card.title}</h3>
+                  <p className="text-[#9ca3af] text-sm leading-relaxed">{card.body}</p>
+                </div>
               </div>
             ))}
           </div>
