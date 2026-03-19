@@ -1,6 +1,6 @@
 # BellSense Website — Agent Reference
 
-**Last Updated:** 2026-03-18 (session 2)
+**Last Updated:** 2026-03-18 (session 3)
 **Status:** Live at bellsense.app — Stripe deferred, articles + program content live
 **Live domain:** bellsense.app (Vercel, connected to this repo's `main` branch)
 
@@ -224,7 +224,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 
 - [x] **Program detail content** — done 2026-03-18. 8 of 9 programs have full MDX body (philosophy, week-by-week, success criteria, next program). `power-endurance-30.mdx` is still a frontmatter-only stub.
 - [x] **Articles** — done 2026-03-18. 14 editorial articles live covering philosophy, score, interval training, full-body tension, strength, the workout stack series (6 parts), and hand care.
-- [x] **Homepage copy** — done 2026-03-18. Hero, problem bullets, use cases, and CTA copy updated per spec.
+- [x] **Homepage copy** — done 2026-03-18 (session 3). Full philosophy-first overhaul: "The sensor doesn't lie" hero, junk-rep problem framing, accountability solution, feature copy rewrite, mindset-based use cases, "Make every rep matter" final CTA. Source: `landing-page-copy-audit.md`.
 - [ ] **OG image / social card** — add `public/og.png` and update `app/layout.tsx` metadata with `openGraph.images`.
 
 ### Near-term features
@@ -262,6 +262,21 @@ The CLI prints a `whsec_...` signing secret — use that as `STRIPE_WEBHOOK_SECR
 ```bash
 npm run build    # verify no type errors before pushing
 ```
+
+---
+
+## Landing Page Voice & Copy Rules
+
+The landing page uses a philosophy-first voice drawn from the editorial articles. Do not revert to generic fitness-tech marketing language. Key rules:
+
+- **Tagline:** "No junk reps." — eyebrow text in hero, core concept throughout
+- **Hero headline:** "The sensor doesn't lie." — confrontational, not promotional
+- **Accountability frame:** "BellSense won't let you cheat anymore" / "There's nowhere to hide" — this is the differentiator, not tracking convenience
+- **Features:** Written through the philosophy lens — Session Score is the *accountability number*, Fatigue Tracking is *Junk Rep Detection*
+- **Who it's for:** Mindset framing (Tired of junk volume / Want to understand why / Ready to be held accountable) — NOT demographic segments
+- **Final CTA:** "Make every rep matter." — do not replace with data/tracking language
+- **Avoid:** "Smart training system", "track your performance", "see your metrics", anything that sounds like Fitbit/Whoop/Garmin
+- **Source of truth for voice:** `landing-page-copy-audit.md` + `content/articles/philosophy.mdx`
 
 ---
 
