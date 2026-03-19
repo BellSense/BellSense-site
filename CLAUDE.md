@@ -1,6 +1,6 @@
 # BellSense Website — Agent Reference
 
-**Last Updated:** 2026-03-18
+**Last Updated:** 2026-03-18 (session 2)
 **Status:** Live at bellsense.app — Stripe deferred, articles + program content live
 **Live domain:** bellsense.app (Vercel, connected to this repo's `main` branch)
 
@@ -12,6 +12,9 @@ Marketing and commerce site for BellSense hardware. The site's primary job is co
 
 **Core purchase flow:**
 Landing → `/buy` → Firebase auth → Stripe Checkout → webhook sets `hasPurchased: true` → `/account` with app download link
+
+**Returning customer flow:**
+Nav "Sign In" → `/login` → Firebase auth → `/account`
 
 ---
 
@@ -47,12 +50,13 @@ bellsense-site/
 │   ├── globals.css                     # Tailwind v4 tokens (@theme)
 │   ├── page.tsx                        # Homepage: hero, value props, how it works, CTA
 │   ├── buy/page.tsx                    # Purchase page: product card + auth modal + Stripe
+│   ├── login/page.tsx                  # Returning customer sign-in (Google + email, no signup)
 │   ├── account/page.tsx                # Gated: purchase status + app download link
 │   ├── articles/
 │   │   ├── page.tsx                    # Articles index (reads content/articles/)
 │   │   └── [slug]/page.tsx             # Article detail (MDX via next-mdx-remote/rsc)
 │   ├── programs/
-│   │   ├── page.tsx                    # Gated: programs index (reads content/programs/)
+│   │   ├── page.tsx                    # Public: programs index — locked cards for non-purchasers
 │   │   └── [slug]/page.tsx             # Gated: program detail (MDX)
 │   ├── faq/page.tsx                    # Static FAQ (data array inline)
 │   ├── privacy/page.tsx                # Privacy policy (JSX, migrated from HTML)
@@ -62,7 +66,7 @@ bellsense-site/
 │       ├── checkout/route.ts           # POST: create Stripe Checkout session
 │       └── webhooks/stripe/route.ts   # POST: handle checkout.session.completed
 ├── components/
-│   ├── Nav.tsx                         # Top nav (client component)
+│   ├── Nav.tsx                         # Top nav — auth-aware (Sign In / My Account via onAuthStateChanged)
 │   ├── Footer.tsx                      # Footer with Privacy/Terms/Support links
 │   └── AuthGuard.tsx                   # Client-side purchase check (secondary guard)
 ├── lib/
@@ -87,12 +91,14 @@ bellsense-site/
 Firebase Auth is shared with the iOS app — same `perfectreps-e3ba7` project. A user who creates an account on the website and buys hardware has the same UID as their iOS account.
 
 **Session flow:**
-1. User signs in via Firebase Auth JS SDK on `/buy`
+1. User signs in via Firebase Auth JS SDK on `/buy` (new customer) or `/login` (returning customer)
 2. Client calls `POST /api/auth/session` with Firebase ID token
 3. API verifies with Firebase Admin → sets HTTP-only `bs_session` cookie (7-day)
-4. `middleware.ts` checks for `bs_session` cookie on every `/programs/*` and `/account` request
-5. If no cookie → redirect to `/buy`
+4. `middleware.ts` checks for `bs_session` cookie on `/programs/[slug]` and `/account` requests
+5. If no cookie → redirect to `/login`
 6. Page-level server components call `getSession()` for full verification + `hasPurchased` check
+
+**Nav auth state:** `Nav.tsx` uses `onAuthStateChanged` client-side to show "Sign In" (→ `/login`) or "My Account" (→ `/account`). Renders nothing during the loading instant to avoid flash.
 
 **Firestore user record fields written by the webhook:**
 ```
@@ -107,7 +113,7 @@ All other fields (iOS app data) are left untouched via `{ merge: true }`.
 
 ## Middleware
 
-`middleware.ts` at the project root. Exports `middleware` (not default). Protects `/programs/:path*` and `/account/:path*` with a cookie presence check. Full `hasPurchased` verification happens in the server component via `getSession()`.
+`middleware.ts` at the project root. Exports `middleware` (not default). Protects `/programs/[slug]` (individual program pages) and `/account` with a cookie presence check. **The `/programs` index is public.** Full `hasPurchased` verification happens in the server component via `getSession()`. No-cookie redirect goes to `/login` (not `/buy`).
 
 **Critical:** The file must be named `middleware.ts` and export `function middleware`. Next.js 16 still uses this convention — do not rename it.
 
@@ -197,7 +203,7 @@ STRIPE_WEBHOOK_SECRET=             # from Stripe dashboard webhook config
 NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in production
 ```
 
-**Firebase Admin private key note:** Paste the key with literal `\n` characters (not real newlines). The `lib/firebase-admin.ts` `.replace(/\\n/g, '\n')` call handles converting them.
+**Firebase Admin private key note:** Paste the key with literal `\n` characters (not real newlines). `lib/firebase-admin.ts` strips surrounding quotes and normalizes newlines defensively — both formats work. Prefer adding via `vercel env add` CLI over the web UI to avoid encoding issues.
 
 ---
 
@@ -212,22 +218,22 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 - [ ] **Register Stripe webhook** — in Stripe dashboard, add endpoint `https://bellsense.app/api/webhooks/stripe` for event `checkout.session.completed`. Copy the webhook signing secret → `STRIPE_WEBHOOK_SECRET`.
 - [ ] **Firebase Storage security rules** — manually set rules in Firebase console so `training/{userId}/{fileName}` is locked to `request.auth.uid == userId`. (iOS opt-in training data feature.)
 - [ ] **Test full purchase flow end-to-end** — sign up → Stripe test checkout → confirm webhook fires → Firestore `hasPurchased: true` → `/account` shows success banner → `/programs` accessible.
-- [ ] **Verify `/programs` and `/account` redirect unauthenticated users to `/buy`.**
+- [x] **Verify `/programs` and `/account` redirect unauthenticated users** — done 2026-03-18. `/programs` index is now public; `/programs/[slug]` and `/account` redirect to `/login`.
 
 ### Content (post-launch or pre-launch)
 
 - [x] **Program detail content** — done 2026-03-18. 8 of 9 programs have full MDX body (philosophy, week-by-week, success criteria, next program). `power-endurance-30.mdx` is still a frontmatter-only stub.
 - [x] **Articles** — done 2026-03-18. 14 editorial articles live covering philosophy, score, interval training, full-body tension, strength, the workout stack series (6 parts), and hand care.
-- [ ] **Homepage copy** — current copy is placeholder. Refine hero headline, value props, and CTA once product positioning is locked.
+- [x] **Homepage copy** — done 2026-03-18. Hero, problem bullets, use cases, and CTA copy updated per spec.
 - [ ] **OG image / social card** — add `public/og.png` and update `app/layout.tsx` metadata with `openGraph.images`.
 
 ### Near-term features
 
-- [ ] **Sign out button** — `Nav.tsx` has no sign-out. Add a sign-out option for authenticated users (call `DELETE /api/auth/session` + `signOut(auth)` then redirect to `/`).
+- [x] **Sign in for returning customers** — done 2026-03-18. Dedicated `/login` page added; Nav shows "Sign In" / "My Account" based on auth state.
+- [ ] **Sign out** — no sign-out option exists yet on Nav or `/account`. Add: call `DELETE /api/auth/session` + `signOut(auth)` then redirect to `/`.
 - [ ] **Apple Sign-In on web** — `app/buy/page.tsx` has Google + email but not Apple. Add `OAuthProvider('apple.com')` flow. Requires Apple Developer config in Firebase Auth.
 - [ ] **Account page: show purchase date** — `getSession()` returns `uid` but not `purchasedAt`. Update `lib/auth.ts` to also return `purchasedAt` from Firestore and display it on `/account`.
 - [ ] **Order confirmation email** — use Stripe's built-in receipt emails (enable in Stripe dashboard) or add a Firebase email trigger. Not currently implemented.
-- [ ] **`/account` sign-out** — currently no way to sign out from the account page.
 
 ### Future / post-launch
 
