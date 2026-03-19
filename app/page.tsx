@@ -13,7 +13,7 @@ export default function HomePage() {
               <span className="text-[#e5322d]">Smart Training System</span>
             </h1>
             <p className="text-lg text-[#9ca3af] mb-8 leading-relaxed max-w-lg">
-              Track every rep, measure power, and see your performance improve — automatically.
+              Track every rep, measure power, and see your performance improve in real time.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
               <Link
@@ -55,9 +55,9 @@ export default function HomePage() {
               </h2>
               <ul className="space-y-4">
                 {[
-                  "You don't know if your swings are actually improving",
-                  'You lose power across sets without realizing it',
-                  'No feedback means wasted sessions',
+                  "You don't know if your swings are improving",
+                  'You lose power across sets without realizing',
+                  'No feedback = wasted training',
                 ].map((item) => (
                   <li key={item} className="flex gap-3 text-[#f0f0f0]">
                     <span className="text-[#e5322d] font-bold mt-0.5">✕</span>
@@ -203,8 +203,8 @@ export default function HomePage() {
                 body: 'Objective performance data for high-rep kettlebell work. No guessing.',
               },
               {
-                title: 'Coaches',
-                body: 'Give clients real performance data every session — not just feel and rep counts.',
+                title: 'General fitness',
+                body: 'Real performance data every session — not just feel and rep counts.',
               },
             ].map((card) => (
               <div key={card.title} className="bg-white/5 border border-white/10 rounded-xl p-6">
