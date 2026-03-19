@@ -45,16 +45,21 @@ export default function BuyPage() {
     setLoading(true)
     try {
       const auth = getClientAuth()
+      const trimmedEmail = email.trim()
       let cred
       if (mode === 'signup') {
-        cred = await createUserWithEmailAndPassword(auth, email, password)
+        cred = await createUserWithEmailAndPassword(auth, trimmedEmail, password)
       } else {
-        cred = await signInWithEmailAndPassword(auth, email, password)
+        cred = await signInWithEmailAndPassword(auth, trimmedEmail, password)
       }
       const idToken = await cred.user.getIdToken()
       await afterAuth(idToken)
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Authentication failed')
+      const code = (err as { code?: string }).code
+      if (code === 'auth/invalid-email') setError('Please enter a valid email address.')
+      else if (code === 'auth/user-not-found' || code === 'auth/wrong-password' || code === 'auth/invalid-credential') setError('Incorrect email or password.')
+      else if (code === 'auth/email-already-in-use') setError('An account with this email already exists. Try signing in instead.')
+      else setError(err instanceof Error ? err.message : 'Authentication failed')
     } finally {
       setLoading(false)
     }
