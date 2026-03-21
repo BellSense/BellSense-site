@@ -219,27 +219,28 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 - [ ] **Firebase Storage security rules** — manually set rules in Firebase console so `training/{userId}/{fileName}` is locked to `request.auth.uid == userId`. (iOS opt-in training data feature.)
 - [ ] **Test full purchase flow end-to-end** — sign up → Stripe test checkout → confirm webhook fires → Firestore `hasPurchased: true` → `/account` shows success banner → `/programs` accessible.
 - [x] **Verify `/programs` and `/account` redirect unauthenticated users** — done 2026-03-18. `/programs` index is now public; `/programs/[slug]` and `/account` redirect to `/login`.
+- [x] **Site professionalization** — done 2026-03-21. Favicon (real app icon PNG from iOS assets), mobile hamburger nav, security headers (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`), per-page metadata on all routes, 404 page, `sitemap.xml`, `robots.txt`, FAQ mounting copy fix, account program count corrected to 9.
 
 ### Content (post-launch or pre-launch)
 
 - [x] **Program detail content** — done 2026-03-18. 8 of 9 programs have full MDX body (philosophy, week-by-week, success criteria, next program). `power-endurance-30.mdx` is still a frontmatter-only stub.
 - [x] **Articles** — done 2026-03-18. 14 editorial articles live covering philosophy, score, interval training, full-body tension, strength, the workout stack series (6 parts), and hand care.
 - [x] **Homepage copy** — done 2026-03-18 (session 3). Full philosophy-first overhaul: "The sensor doesn't lie" hero, junk-rep problem framing, accountability solution, feature copy rewrite, mindset-based use cases, "Make every rep matter" final CTA. Source: `landing-page-copy-audit.md`.
-- [x] **Homepage copy updates** — done 2026-03-19. Step 1 mounting instruction updated ("Attach BellSense to the kettlebell beneath the handle"). "Who it's for" expanded to 4 cards with new "Wants real coaching" card (grid changed to `md:grid-cols-2` 2×2 layout).
-- [ ] **OG image / social card** — add `public/og.png` and update `app/layout.tsx` metadata with `openGraph.images`.
-- [ ] **Feature card screenshots** — cards are currently text-only. When better app screenshots are available, redesign as full-width image-on-top layout (small thumbnails don't work for data-heavy UI). New screenshots already in `public/screenshots/`: `session-score.png`, `velocity-power.png`, `junk-rep.png`, `main-picture.png`.
+- [x] **Homepage copy updates** — done 2026-03-21. Step 1 mounting instruction updated ("Attach BellSense to the kettlebell beneath the handle"). "Who it's for" expanded to 4 cards with new "Wants real coaching" card (grid changed to `md:grid-cols-2` 2×2 layout).
+- [x] **OG image / social card** — done 2026-03-21. Dynamic route at `app/api/og/route.tsx` using `next/og` + Geist Bold. Dark bg, red logo mark, "The sensor doesn't lie." headline, session score screenshot panel. `layout.tsx` wired with `metadataBase`, `openGraph`, and `twitter` metadata.
+- [x] **Feature card screenshots** — done 2026-03-21. Full-width image-on-top layout (`h-72`, `object-contain`). Hero updated to `main-picture.png`. Cards: Rep Counting → `main-picture.png`, Velocity & Power → `velocity-power.png`, Junk Rep Detection → `junk-rep.png`, Session Score → `session-score.png`.
 
 ### Near-term features
 
 - [x] **Sign in for returning customers** — done 2026-03-18. Dedicated `/login` page added; Nav shows "Sign In" / "My Account" based on auth state.
-- [ ] **Sign out** — no sign-out option exists yet on Nav or `/account`. Add: call `DELETE /api/auth/session` + `signOut(auth)` then redirect to `/`.
-- [ ] **Apple Sign-In on web** — `app/buy/page.tsx` has Google + email but not Apple. Add `OAuthProvider('apple.com')` flow. Requires Apple Developer config in Firebase Auth.
+- [x] **Sign out** — done 2026-03-21. `SignOutButton` component calls `DELETE /api/auth/session` + `signOut(auth)` + redirects to `/`. Shown on `/account` and in desktop + mobile nav.
+- [x] **Apple Sign-In on web** — done 2026-03-21. `OAuthProvider('apple.com')` added to `/buy` and `/login`. Apple button sits above Google per HIG prominence requirement. Requires Firebase Apple provider to be configured with Service ID `com.bellsense.web`, Team ID, Key ID, and `.p8` private key. **Note:** never commit `.p8` files — added to `.gitignore`.
 - [ ] **Account page: show purchase date** — `getSession()` returns `uid` but not `purchasedAt`. Update `lib/auth.ts` to also return `purchasedAt` from Firestore and display it on `/account`.
 - [ ] **Order confirmation email** — use Stripe's built-in receipt emails (enable in Stripe dashboard) or add a Firebase email trigger. Not currently implemented.
 
 ### Future / post-launch
 
-- [ ] **Social auth on web** — Apple Sign-In (see near-term above).
+- [x] **Social auth on web** — Apple Sign-In done 2026-03-21 (see near-term above).
 - [ ] **Customer portal** — Stripe Customer Portal for viewing purchase history. Low priority given one-time purchase model.
 - [ ] **BellSense+ subscription tier** — when the subscription tier launches (see `/Long Range Strategy Docs/pricing_business_model_vision.md`), add a separate Stripe product with `mode: 'subscription'` and a second gating level (`hasSubscription: true`).
 - [ ] **Program marketplace** — when the social/community tier launches, programs become user-generated content. See `/Long Range Strategy Docs/social_community_vision.md`.
