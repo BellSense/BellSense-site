@@ -234,7 +234,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 
 - [x] **Sign in for returning customers** — done 2026-03-18. Dedicated `/login` page added; Nav shows "Sign In" / "My Account" based on auth state.
 - [x] **Sign out** — done 2026-03-21. `SignOutButton` component calls `DELETE /api/auth/session` + `signOut(auth)` + redirects to `/`. Shown on `/account` and in desktop + mobile nav.
-- [x] **Apple Sign-In on web** — done 2026-03-21. `OAuthProvider('apple.com')` added to `/buy` and `/login`. Apple button sits above Google per HIG prominence requirement. Requires Firebase Apple provider to be configured with Service ID `com.bellsense.web`, Team ID, Key ID, and `.p8` private key. **Note:** never commit `.p8` files — added to `.gitignore`.
+- [x] **Apple Sign-In on web** — done 2026-03-21. `OAuthProvider('apple.com')` added to `/buy` and `/login`. Apple button sits above Google per HIG prominence requirement. Firebase configured with Service ID `com.bellsense.web`, Team ID, Key ID, and `.p8` private key. Fully live. **Note:** never commit `.p8` files — added to `.gitignore`.
 - [ ] **Account page: show purchase date** — `getSession()` returns `uid` but not `purchasedAt`. Update `lib/auth.ts` to also return `purchasedAt` from Firestore and display it on `/account`.
 - [ ] **Order confirmation email** — use Stripe's built-in receipt emails (enable in Stripe dashboard) or add a Firebase email trigger. Not currently implemented.
 
