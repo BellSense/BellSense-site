@@ -35,7 +35,7 @@ export default async function ProgramsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-extrabold tracking-tight mb-2">Programs</h1>
-      <p className="text-[#9ca3af] mb-10">8 programs across 4 archetypes. All included with your purchase.</p>
+      <p className="text-[#9ca3af] mb-10">9 programs across 4 archetypes. All included with your purchase.</p>
 
       {!hasPurchased && (
         <div className="bg-[#e5322d]/10 border border-[#e5322d]/30 rounded-xl px-6 py-4 mb-8 flex items-center justify-between gap-4 flex-wrap">
