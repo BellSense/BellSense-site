@@ -31,6 +31,8 @@ export async function POST(req: NextRequest) {
         quantity: 1,
       },
     ],
+    shipping_address_collection: { allowed_countries: ['US'] },
+    phone_number_collection: { enabled: true },
     metadata: { firebaseUID: uid },
     success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/account?success=true`,
     cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/buy`,

@@ -1,6 +1,6 @@
 # BellSense Website — Agent Reference
 
-**Last Updated:** 2026-03-18 (session 4)
+**Last Updated:** 2026-03-23 (session 5)
 **Status:** Live at bellsense.app — Stripe deferred, articles + program content live
 **Live domain:** bellsense.app (Vercel, connected to this repo's `main` branch)
 
@@ -63,7 +63,8 @@ bellsense-site/
 │   ├── terms/page.tsx                  # Terms of service (JSX, migrated from HTML)
 │   └── api/
 │       ├── auth/session/route.ts       # POST: create session cookie / DELETE: clear it
-│       ├── checkout/route.ts           # POST: create Stripe Checkout session
+│       ├── checkout/route.ts           # POST: create Stripe Checkout session (US-only shipping + phone collection)
+│       ├── beta-application/route.ts   # POST: save beta applicant to Firestore betaApplications collection
 │       └── webhooks/stripe/route.ts   # POST: handle checkout.session.completed
 ├── components/
 │   ├── Nav.tsx                         # Top nav — auth-aware (Sign In / My Account via onAuthStateChanged)
@@ -78,7 +79,7 @@ bellsense-site/
 │   ├── articles/                       # 15 MDX articles (welcome + 14 editorial pieces)
 │   └── programs/                       # 9 MDX files — frontmatter + full body content
 ├── middleware.ts                       # Edge route protection: /programs/* and /account
-├── next.config.ts
+├── next.config.ts                      # Includes rewrite: /beta → /beta.html (standalone page, bypasses app layout)
 ├── tsconfig.json
 ├── package.json
 └── .env.local.example                  # Template — copy to .env.local with real keys
@@ -106,6 +107,22 @@ users/{uid}/
   hasPurchased: bool
   purchasedAt: Timestamp
   stripeCustomerId: string
+  shippingAddress: { line1, line2, city, state, postal_code, country } | null
+  shippingName: string | null
+  shippingPhone: string | null
+  customerEmail: string | null
+```
+
+**Beta applicant records (Firestore):**
+```
+betaApplications/{docId}/
+  name: string
+  email: string
+  experience: string   (dropdown value)
+  style: string        (dropdown value)
+  notes: string
+  submittedAt: Timestamp
+  status: "pending"    (manually set to "approved"/"rejected" in Firebase console)
 ```
 All other fields (iOS app data) are left untouched via `{ merge: true }`.
 
@@ -219,6 +236,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 - [ ] **Firebase Storage security rules** — manually set rules in Firebase console so `training/{userId}/{fileName}` is locked to `request.auth.uid == userId`. (iOS opt-in training data feature.)
 - [ ] **Test full purchase flow end-to-end** — sign up → Stripe test checkout → confirm webhook fires → Firestore `hasPurchased: true` → `/account` shows success banner → `/programs` accessible.
 - [x] **Verify `/programs` and `/account` redirect unauthenticated users** — done 2026-03-18. `/programs` index is now public; `/programs/[slug]` and `/account` redirect to `/login`.
+- [x] **Beta recruitment page** — done 2026-03-23. `public/beta.html` (standalone, bypasses app layout — own nav/footer/fonts/amber color scheme). Accessible at `/beta` via next.config.ts rewrite. Form POSTs to `/api/beta-application` → Firestore `betaApplications`. US shipping collected at Stripe checkout; address saved to Firestore on webhook.
 - [x] **Site professionalization** — done 2026-03-21. Favicon (real app icon PNG from iOS assets), mobile hamburger nav, security headers (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`), per-page metadata on all routes, 404 page, `sitemap.xml`, `robots.txt`, FAQ mounting copy fix, account program count corrected to 9.
 
 ### Content (post-launch or pre-launch)

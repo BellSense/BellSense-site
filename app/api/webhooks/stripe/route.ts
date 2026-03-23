@@ -24,6 +24,10 @@ export async function POST(req: NextRequest) {
           hasPurchased: true,
           purchasedAt: FieldValue.serverTimestamp(),
           stripeCustomerId: session.customer,
+          shippingAddress: session.collected_information?.shipping_details?.address ?? null,
+          shippingName: session.collected_information?.shipping_details?.name ?? null,
+          shippingPhone: session.customer_details?.phone ?? null,
+          customerEmail: session.customer_details?.email ?? null,
         },
         { merge: true }
       )

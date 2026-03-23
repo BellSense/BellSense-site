@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BellSense — Beta Hardware Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --iron: #141414;
+    --steel: #1e1e1e;
+    --border: #2a2a2a;
+    --muted: #555;
+    --mid: #888;
+    --light: #ccc;
+    --white: #f0ede8;
+    --amber: #d4a843;
+    --amber-dim: #a07a28;
+    --red: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* UTILITY */
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .amber { color: var(--amber); }
+  .muted { color: var(--muted); }
+  .mid { color: var(--mid); }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--amber); }
+
+  .nav-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    border: 1px solid var(--amber-dim);
+    padding: 4px 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px 80px 48px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 48px;
+    position: relative;
+  }
+
+  /* Diagonal line accent */
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--amber), transparent);
+  }
+
+  .beta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  .beta-pill::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(52px, 6vw, 88px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
+  .hero-headline .line-accent {
+    color: var(--amber);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--light);
+    line-height: 1.65;
+    max-width: 440px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.35s forwards;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--amber);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 18px 36px;
+    text-decoration: none;
+    width: fit-content;
+    transition: background 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-primary::after {
+    content: '→';
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+
+  .cta-primary:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .cta-primary:hover::after { transform: translateX(4px); }
+
+  .cta-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* SENSOR VISUAL */
+  .sensor-display {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.6s forwards;
+  }
+
+  .sensor-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    animation: spin 20s linear infinite;
+  }
+
+  .sensor-ring-1 { inset: 0; animation-direction: normal; }
+  .sensor-ring-2 { inset: 30px; animation-direction: reverse; animation-duration: 15s; border-style: dashed; border-color: #2e2e2e; }
+  .sensor-ring-3 { inset: 60px; animation-duration: 25s; border-color: #252525; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .sensor-core {
+    position: absolute;
+    inset: 80px;
+    background: var(--iron);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .sensor-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .sensor-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: var(--amber);
+    letter-spacing: 0.02em;
+    animation: countUp 3s ease 1.5s forwards;
+  }
+
+  .sensor-unit {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--mid);
+  }
+
+  /* Orbiting data points */
+  .orbit-point {
+    position: absolute;
+    background: var(--iron);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--light);
+    white-space: nowrap;
+  }
+
+  .orbit-point span { color: var(--amber); display: block; font-size: 14px; font-weight: 500; }
+  .op1 { top: 10px; right: -60px; }
+  .op2 { bottom: 60px; right: -80px; }
+  .op3 { bottom: 10px; left: -60px; }
+  .op4 { top: 60px; left: -80px; }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 0 48px;
+  }
+
+  /* SECTION */
+  section { padding: 96px 48px; }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  /* FOR SECTION */
+  .for-section { background: var(--iron); }
+
+  .for-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .for-card {
+    background: var(--steel);
+    padding: 40px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .for-card.yes { border-color: var(--amber); }
+  .for-card.no { border-color: var(--red); opacity: 0.6; }
+
+  .for-card-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .for-card.yes .for-card-tag { color: var(--amber); }
+  .for-card.no .for-card-tag { color: var(--red); }
+
+  .for-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .for-card p {
+    font-size: 15px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* METRICS */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 0;
+  }
+
+  .metric-card {
+    background: var(--iron);
+    padding: 36px 28px;
+    border-top: 2px solid var(--border);
+    transition: border-color 0.3s;
+    cursor: default;
+  }
+
+  .metric-card:hover { border-color: var(--amber); }
+
+  .metric-icon {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .metric-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .metric-desc {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.55;
+  }
+
+  /* HARDWARE */
+  .hardware-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hardware-spec-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+
+  .hardware-spec-list li {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .hardware-spec-list li .spec-key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+
+  .hardware-spec-list li .spec-val {
+    color: var(--light);
+  }
+
+  .hw-visual {
+    background: var(--iron);
+    border: 1px solid var(--border);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+  }
+
+  .hw-visual::before {
+    content: 'UNIT — REV 1';
+    position: absolute;
+    top: 16px; right: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+
+  .hw-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hw-bar-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .hw-bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .hw-bar-fill {
+    height: 100%;
+    background: var(--amber);
+    transition: width 1.5s ease;
+  }
+
+  .hw-bar-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--light);
+    width: 60px;
+    text-align: right;
+  }
+
+  /* HOW IT WORKS */
+  .steps-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 0;
+  }
+
+  .step {
+    padding: 40px;
+    background: var(--iron);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step::before {
+    content: attr(data-n);
+    position: absolute;
+    top: -10px; right: 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 96px;
+    color: var(--border);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .step p {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.6;
+    position: relative;
+  }
+
+  /* FOUNDER SECTION */
+  .founder-section {
+    background: var(--iron);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .founder-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(36px, 4vw, 56px);
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+
+  .founder-headline em {
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  .founder-desc {
+    font-size: 16px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .perks-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .perks-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    color: var(--light);
+  }
+
+  .perks-list li::before {
+    content: '//';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  /* APPLY FORM */
+  .apply-card {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    padding: 48px;
+  }
+
+  .apply-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+
+  .apply-card .subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.05em;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  input, textarea, select {
+    background: var(--iron);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--amber);
+  }
+
+  textarea { resize: none; height: 80px; }
+
+  select option { background: var(--iron); }
+
+  .apply-submit {
+    width: 100%;
+    background: var(--amber);
+    color: var(--black);
+    border: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 18px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .apply-submit:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .form-note {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center;
+    padding: 120px 48px;
+    position: relative;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(212,168,67,0.04) 0%, transparent 70%);
+  }
+
+  .final-cta h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 72px);
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .final-cta p {
+    font-size: 17px;
+    color: var(--mid);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .footer-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    section { padding: 72px 24px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 80px 24px 60px; }
+    .for-grid,
+    .hardware-section,
+    .founder-grid,
+    .metrics-grid,
+    .steps-list { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 20px; text-align: center; }
+    .section-divider { margin: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Bell<span>Sense</span></a>
+  <div class="nav-tag">Beta Program — Limited Units</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="beta-pill">Hardware Beta — Now Open</div>
+
+    <h1 class="hero-headline">
+      Your swing.<br>
+      <span class="line-accent">Measured.</span>
+      Finally.
+    </h1>
+
+    <p class="hero-sub">
+      BellSense is a small sensor that mounts to your kettlebell handle and pairs with your iPhone. Every rep tracked. Power output measured. No guesswork.
+      <br><br>
+      We're looking for serious practitioners to test early hardware. You train hard. Help us build something worthy of that.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="#apply" class="cta-primary">Apply for Beta</a>
+      <span class="cta-note">// Limited units — hardware ships when ready</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="sensor-display">
+      <div class="sensor-ring sensor-ring-1"></div>
+      <div class="sensor-ring sensor-ring-2"></div>
+      <div class="sensor-ring sensor-ring-3"></div>
+      <div class="sensor-core">
+        <div class="sensor-label">Rep Power</div>
+        <div class="sensor-value">847</div>
+        <div class="sensor-unit">watts · avg</div>
+      </div>
+      <div class="orbit-point op1">
+        <span>94%</span>Velocity Ret.
+      </div>
+      <div class="orbit-point op2">
+        <span>12</span>Reps
+      </div>
+      <div class="orbit-point op3">
+        <span>89</span>BellScore
+      </div>
+      <div class="orbit-point op4">
+        <span>24kg</span>Load
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WHO IT'S FOR -->
+<section class="for-section reveal">
+  <div class="section-label">Who This Is For</div>
+
+  <div class="for-grid">
+    <div class="for-card yes">
+      <div class="for-card-tag">// This is you</div>
+      <h3>Hardstyle practitioner</h3>
+      <p>You train with intention. Hip hinge mechanics, power expression, full-body tension. You know what a quality rep feels like — and you want data to confirm it.</p>
+    </div>
+    <div class="for-card yes">
+      <div class="for-card-tag">// Also you</div>
+      <h3>Self-coached, program-driven</h3>
+      <p>You follow structured programs. You want to know whether your effort is translating — whether your swings at rep 18 still carry the same power as rep 1.</p>
+    </div>
+    <div class="for-card no">
+      <div class="for-card-tag">// Not right now</div>
+      <h3>Kettlebell sport / GS athletes</h3>
+      <p>Different swing mechanics, different pacing strategy. BellSense is calibrated for hardstyle. GS is on the roadmap — but not yet, and we won't pretend otherwise.</p>
+    </div>
+    <div class="for-card no">
+      <div class="for-card-tag">// Not the fit</div>
+      <h3>Casual or gym-variety lifters</h3>
+      <p>If you're looking for a basic step counter with a kettlebell twist, this isn't it. BellSense is built for people who actually care about the data.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WHAT IT MEASURES -->
+<section class="reveal">
+  <div class="section-label">What It Measures</div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-icon">01 — Power</div>
+      <div class="metric-name">Rep Power Output</div>
+      <p class="metric-desc">Peak and average watts per rep. See how explosive each swing actually is, not just how many you did.</p>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">02 — Consistency</div>
+      <div class="metric-name">Velocity Retention</div>
+      <p class="metric-desc">How much power you hold across a set. The number that tells you when you're grinding vs. still moving well.</p>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">03 — Volume</div>
+      <div class="metric-name">Rep Counting</div>
+      <p class="metric-desc">Accurate rep detection with near-zero false positives. Swings, cleans, snatches — tracked by movement, not guesswork.</p>
+    </div>
+    <div class="metric-card">
+      <div class="metric-icon">04 — Quality</div>
+      <div class="metric-name">BellScore</div>
+      <p class="metric-desc">One number for the whole session. Weighted composite of volume, velocity retention, power, and completion. Quality beats quantity.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="reveal">
+  <div class="section-label">How It Works</div>
+
+  <div class="steps-list">
+    <div class="step" data-n="1">
+      <div class="step-title">Mount the sensor</div>
+      <p>The unit attaches to your kettlebell handle with adhesive and magnets — no tools, no permanent modification. Stays put during training, comes off for charging.</p>
+    </div>
+    <div class="step" data-n="2">
+      <div class="step-title">Train normally</div>
+      <p>Open the app, select your exercise and weight, start your session. The sensor connects over Bluetooth and begins measuring from rep one.</p>
+    </div>
+    <div class="step" data-n="3">
+      <div class="step-title">See your data</div>
+      <p>Real-time metrics during the session. Full breakdown after — rep-by-rep power, set summaries, velocity curves, BellScore. Your training, made legible.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HARDWARE SPECS -->
+<section class="reveal">
+  <div class="section-label">The Hardware</div>
+
+  <div class="hardware-section">
+    <div>
+      <p style="font-size:16px; color: var(--light); line-height:1.7; margin-bottom: 32px;">
+        Small enough to forget it's there. Rugged enough for chalk-dusted, sweaty training sessions. The enclosure is printed PETG — durable, lightweight, not precious.
+      </p>
+
+      <ul class="hardware-spec-list">
+        <li>
+          <span class="spec-key">Microcontroller</span>
+          <span class="spec-val">Seeed XIAO nRF52840 Sense</span>
+        </li>
+        <li>
+          <span class="spec-key">IMU</span>
+          <span class="spec-val">6-axis accelerometer + gyroscope</span>
+        </li>
+        <li>
+          <span class="spec-key">Connectivity</span>
+          <span class="spec-val">Bluetooth LE 5.0</span>
+        </li>
+        <li>
+          <span class="spec-key">Mount</span>
+          <span class="spec-val">Adhesive + magnets — no permanent modification</span>
+        </li>
+        <li>
+          <span class="spec-key">Enclosure</span>
+          <span class="spec-val">~60×40×12mm PETG</span>
+        </li>
+        <li>
+          <span class="spec-key">Battery</span>
+          <span class="spec-val">LiPo — rechargeable via USB-C</span>
+        </li>
+        <li>
+          <span class="spec-key">Platform</span>
+          <span class="spec-val">iOS (iPhone)</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="hw-visual">
+      <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 32px; color: var(--white);">Live Session — Sample</div>
+
+      <div class="hw-bar">
+        <span class="hw-bar-label">Power</span>
+        <div class="hw-bar-track"><div class="hw-bar-fill" style="width: 84%"></div></div>
+        <span class="hw-bar-val">847w</span>
+      </div>
+      <div class="hw-bar">
+        <span class="hw-bar-label">Vel. Ret.</span>
+        <div class="hw-bar-track"><div class="hw-bar-fill" style="width: 94%"></div></div>
+        <span class="hw-bar-val">94%</span>
+      </div>
+      <div class="hw-bar">
+        <span class="hw-bar-label">Consistency</span>
+        <div class="hw-bar-track"><div class="hw-bar-fill" style="width: 91%"></div></div>
+        <span class="hw-bar-val">91%</span>
+      </div>
+      <div class="hw-bar">
+        <span class="hw-bar-label">BellScore</span>
+        <div class="hw-bar-track"><div class="hw-bar-fill" style="width: 89%"></div></div>
+        <span class="hw-bar-val">89</span>
+      </div>
+
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em;">SESSION / 24KG SWINGS</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-top: 6px;">12 REPS · 4 SETS · 23:14 ELAPSED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FOUNDER SECTION + FORM -->
+<section class="founder-section reveal" id="apply">
+  <div class="founder-grid">
+    <div>
+      <div class="section-label">Beta Program</div>
+
+      <h2 class="founder-headline">
+        Get in<br>
+        <em>before</em><br>
+        anyone else.
+      </h2>
+
+      <p class="founder-desc">
+        Beta testers aren't just users. You're shaping what BellSense becomes — which exercises get prioritized, how the scoring works, what the app surfaces. Direct line to development.
+      </p>
+
+      <ul class="perks-list">
+        <li>Early hardware unit at cost — not retail</li>
+        <li>Lifetime BellSense+ access with permanent Founder badge</li>
+        <li>Direct input on features and roadmap priorities</li>
+        <li>First to know when programs and community features launch</li>
+        <li>Your feedback shapes detection accuracy for hardstyle movements</li>
+      </ul>
+    </div>
+
+    <div class="apply-card">
+      <h3>Apply for a Unit</h3>
+      <div class="subtitle">// We'll follow up personally — no automated pipeline</div>
+
+      <div class="field-group">
+        <div class="field">
+          <label>Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="field">
+          <label>How long have you trained with kettlebells?</label>
+          <select>
+            <option value="" disabled selected>Select...</option>
+            <option>Less than 1 year</option>
+            <option>1–3 years</option>
+            <option>3–5 years</option>
+            <option>5+ years</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Primary training style</label>
+          <select>
+            <option value="" disabled selected>Select...</option>
+            <option>Hardstyle (swings, cleans, snatches)</option>
+            <option>Strength / barbell + KB hybrid</option>
+            <option>Program-based (Simple & Sinister, etc.)</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Anything else? (optional)</label>
+          <textarea placeholder="What you're training for, what you're curious about..."></textarea>
+        </div>
+      </div>
+
+      <button class="apply-submit">Submit Application</button>
+      <p class="form-note">// No commitment. We'll reach out with details before anything ships.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta reveal">
+  <h2>Train with data.<br><span class="amber">Perform with intent.</span></h2>
+  <p>Beta spots are limited. If you're the kind of person who reads this far, you're probably the kind of person we're looking for.</p>
+  <a href="#apply" class="cta-primary">Apply Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="footer-logo">BellSense</a>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms</a>
+    <a href="mailto:hello@bellsense.app">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Animate bar fills on scroll
+  const bars = document.querySelectorAll('.hw-bar-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const target = e.target.style.width;
+        e.target.style.width = '0';
+        setTimeout(() => { e.target.style.width = target; }, 100);
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  bars.forEach(b => barObserver.observe(b));
+
+  // Form submit
+  document.querySelector('.apply-submit').addEventListener('click', async function() {
+    const name = document.querySelector('input[type="text"]').value.trim();
+    const email = document.querySelector('input[type="email"]').value.trim();
+    const selects = document.querySelectorAll('select');
+    const experience = selects[0].value;
+    const style = selects[1].value;
+    const notes = document.querySelector('textarea').value.trim();
+
+    if (!name || !email || !experience || !style) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    this.textContent = 'Submitting...';
+    this.disabled = true;
+
+    try {
+      const res = await fetch('/api/beta-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, experience, style, notes }),
+      });
+
+      if (res.ok) {
+        this.textContent = 'Application Received ✓';
+        this.style.background = '#2a5a3a';
+        this.style.color = '#7fcfa0';
+      } else {
+        this.textContent = 'Submit Application';
+        this.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      this.textContent = 'Submit Application';
+      this.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  });
+</script>
+
+</body>
+</html>

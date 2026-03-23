@@ -2,6 +2,11 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
+  async rewrites() {
+    return [
+      { source: '/beta', destination: '/beta.html' },
+    ]
+  },
   async headers() {
     return [
       {
