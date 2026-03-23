@@ -35,13 +35,13 @@ export default function HomePage() {
             </div>
           </div>
           <div className="shrink-0 w-[240px] sm:w-[280px]">
-            <div className="relative w-full" style={{ height: '520px' }}>
+            <div className="relative w-full" style={{ height: '420px' }}>
               <Image
-                src="/screenshots/main-picture.png"
+                src="/screenshots/workout-screen.png"
                 alt="BellSense active workout tracking screen"
                 fill
                 priority
-                className="object-cover rounded-2xl"
+                className="object-contain rounded-2xl"
               />
             </div>
           </div>
@@ -141,10 +141,10 @@ export default function HomePage() {
                 imageAlt: 'Power by round chart and rep metrics scatter plot',
               },
               {
-                title: 'Junk Rep Detection',
-                body: 'Know when your output has degraded enough that more reps aren\'t building — they\'re just burning.',
-                image: '/screenshots/junk-rep.png',
-                imageAlt: 'Session summary highlighting velocity drop detection',
+                title: 'Track Your Progress',
+                body: 'Score trends, volume over time, recent sessions — everything you need to see if the work is actually working.',
+                image: '/screenshots/workout-progress.png',
+                imageAlt: 'BellSense history screen showing score trend and volume trend charts',
               },
               {
                 title: 'Session Score',

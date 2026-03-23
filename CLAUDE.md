@@ -246,7 +246,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 - [x] **Homepage copy** — done 2026-03-18 (session 3). Full philosophy-first overhaul: "The sensor doesn't lie" hero, junk-rep problem framing, accountability solution, feature copy rewrite, mindset-based use cases, "Make every rep matter" final CTA. Source: `landing-page-copy-audit.md`.
 - [x] **Homepage copy updates** — done 2026-03-21. Step 1 mounting instruction updated ("Attach BellSense to the kettlebell beneath the handle"). "Who it's for" expanded to 4 cards with new "Wants real coaching" card (grid changed to `md:grid-cols-2` 2×2 layout).
 - [x] **OG image / social card** — done 2026-03-21. Dynamic route at `app/api/og/route.tsx` using `next/og` + Geist Bold. Dark bg, red logo mark, "The sensor doesn't lie." headline, session score screenshot panel. `layout.tsx` wired with `metadataBase`, `openGraph`, and `twitter` metadata.
-- [x] **Feature card screenshots** — done 2026-03-21. Full-width image-on-top layout (`h-72`, `object-contain`). Hero updated to `main-picture.png`. Cards: Rep Counting → `main-picture.png`, Velocity & Power → `velocity-power.png`, Junk Rep Detection → `junk-rep.png`, Session Score → `session-score.png`.
+- [x] **Feature card screenshots** — done 2026-03-23 (updated). Hero: `workout-screen.png` (`object-contain`, 280×420px). Cards: Rep Counting → `main-picture.png`, Velocity & Power → `velocity-power.png`, Track Your Progress → `workout-progress.png`, Session Score → `session-score.png`. Removed `junk-rep.png` card.
 
 ### Near-term features
 
