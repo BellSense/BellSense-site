@@ -1,7 +1,7 @@
 # BellSense Website — Agent Reference
 
-**Last Updated:** 2026-03-23 (session 5)
-**Status:** Live at bellsense.app — Stripe deferred, articles + program content live
+**Last Updated:** 2026-03-25 (session 6)
+**Status:** Live at bellsense.app — Stripe live, beta purchase flow active ($60, 20-unit cap)
 **Live domain:** bellsense.app (Vercel, connected to this repo's `main` branch)
 
 ---
@@ -228,11 +228,11 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000   # https://bellsense.app in producti
 
 ### Before first deploy (blockers)
 
-- [x] **Set env vars in Vercel** — done 2026-03-17. Firebase + session cookie set. Stripe vars left blank (deferred).
+- [x] **Set env vars in Vercel** — done 2026-03-17. Firebase + session cookie set. Stripe live keys + webhook secret added 2026-03-25.
 - [x] **Deploy to Vercel** — done 2026-03-17. Live at bellsense.app + www.bellsense.app.
-- [ ] **Set real Stripe price** — update `unit_amount: 9900` in `app/api/checkout/route.ts` to the actual hardware price.
+- [x] **Set real Stripe price** — done 2026-03-25. Beta price $60 (50% off $120 retail). Price ID `price_1TEwAfRxwufIF74IPe8ZrEPa`. Inventory capped at 20 units (Firestore `hasPurchased` count check in checkout route). Checkout uses Stripe-hosted page.
 - [ ] **Set App Store link** — replace `href="https://apps.apple.com"` placeholder in `app/account/page.tsx` with the real App Store URL.
-- [ ] **Register Stripe webhook** — in Stripe dashboard, add endpoint `https://bellsense.app/api/webhooks/stripe` for event `checkout.session.completed`. Copy the webhook signing secret → `STRIPE_WEBHOOK_SECRET`.
+- [x] **Register Stripe webhook** — done 2026-03-25. Endpoint `https://bellsense.app/api/webhooks/stripe`, event `checkout.session.completed`. `STRIPE_WEBHOOK_SECRET` set in Vercel.
 - [ ] **Firebase Storage security rules** — manually set rules in Firebase console so `training/{userId}/{fileName}` is locked to `request.auth.uid == userId`. (iOS opt-in training data feature.)
 - [ ] **Test full purchase flow end-to-end** — sign up → Stripe test checkout → confirm webhook fires → Firestore `hasPurchased: true` → `/account` shows success banner → `/programs` accessible.
 - [x] **Verify `/programs` and `/account` redirect unauthenticated users** — done 2026-03-18. `/programs` index is now public; `/programs/[slug]` and `/account` redirect to `/login`.

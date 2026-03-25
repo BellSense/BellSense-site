@@ -25,6 +25,10 @@ export default function BuyPage() {
       body: JSON.stringify({ idToken }),
     })
     const data = await res.json()
+    if (res.status === 409 || data.error === 'sold_out') {
+      setError('All beta units have been claimed. Join the waitlist at bellsense.app/beta.')
+      return
+    }
     if (data.url) window.location.href = data.url
   }
 
@@ -121,7 +125,11 @@ export default function BuyPage() {
           <p className="text-[#9ca3af] mb-6 leading-relaxed">
             Kettlebell-mounted IMU sensor + iOS app with lifetime access. Seven exercises. Real-time feedback.
           </p>
-          <div className="text-4xl font-extrabold mb-2">$99</div>
+          <div className="flex items-baseline gap-3 mb-1">
+            <div className="text-4xl font-extrabold">$60</div>
+            <div className="text-xl text-[#9ca3af] line-through">$120</div>
+          </div>
+          <p className="text-sm text-[#e5322d] font-medium mb-1">Beta pricing — 50% off. Limited to 20 units.</p>
           <p className="text-sm text-[#9ca3af] mb-8">One-time purchase. No subscription.</p>
           <ul className="space-y-2 text-sm text-[#9ca3af]">
             {[

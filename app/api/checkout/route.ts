@@ -15,19 +15,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
   }
 
+  // Inventory cap — count confirmed purchases before creating a session
+  const BETA_INVENTORY_LIMIT = 20
+  const adminDb = await getAdminDb()
+  const purchasedSnap = await adminDb
+    .collection('users')
+    .where('hasPurchased', '==', true)
+    .count()
+    .get()
+  if (purchasedSnap.data().count >= BETA_INVENTORY_LIMIT) {
+    return NextResponse.json({ error: 'sold_out' }, { status: 409 })
+  }
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     mode: 'payment',
     line_items: [
       {
-        price_data: {
-          currency: 'usd',
-          unit_amount: 9900, // $99.00 — update to real price
-          product_data: {
-            name: 'BellSense Sensor',
-            description: 'Kettlebell-mounted IMU sensor + iOS app lifetime access',
-          },
-        },
+        price: 'price_1TEwAfRxwufIF74IPe8ZrEPa', // $60 beta price
         quantity: 1,
       },
     ],
