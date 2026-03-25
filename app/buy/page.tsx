@@ -26,7 +26,7 @@ export default function BuyPage() {
     })
     const data = await res.json()
     if (res.status === 409 || data.error === 'sold_out') {
-      setError('All beta units have been claimed. Join the waitlist at bellsense.app/beta.')
+      setError('Due to overwhelming demand, we have capped the beta user price. If you would still like to be a beta user please join the waitlist at bellsense.app/beta.')
       return
     }
     if (data.url) window.location.href = data.url
@@ -129,7 +129,7 @@ export default function BuyPage() {
             <div className="text-4xl font-extrabold">$60</div>
             <div className="text-xl text-[#9ca3af] line-through">$120</div>
           </div>
-          <p className="text-sm text-[#e5322d] font-medium mb-1">Beta pricing — 50% off. Limited to 20 units.</p>
+          <p className="text-sm text-[#e5322d] font-medium mb-1">Beta pricing — 50% off retail.</p>
           <p className="text-sm text-[#9ca3af] mb-8">One-time purchase. No subscription.</p>
           <ul className="space-y-2 text-sm text-[#9ca3af]">
             {[
