@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import Link from 'next/link'
+import ProgramsTabView from '@/components/ProgramsTabView'
 
 interface ProgramMeta {
   title: string
@@ -11,6 +12,7 @@ interface ProgramMeta {
   weeks: number
   sessionsPerWeek: number
   archetype: string
+  trainingStyle: string
   bestFor: string
 }
 
@@ -35,7 +37,9 @@ export default async function ProgramsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16">
       <h1 className="text-3xl font-extrabold tracking-tight mb-2">Programs</h1>
-      <p className="text-[#9ca3af] mb-10">9 programs across 4 archetypes. All included with your purchase.</p>
+      <p className="text-[#9ca3af] mb-10">
+        KB Only programs are included with your purchase. Additional training styles coming with BellSense+.
+      </p>
 
       {!hasPurchased && (
         <div className="bg-[#e5322d]/10 border border-[#e5322d]/30 rounded-xl px-6 py-4 mb-8 flex items-center justify-between gap-4 flex-wrap">
@@ -46,54 +50,17 @@ export default async function ProgramsPage() {
             <Link href="/login" className="text-[#9ca3af] hover:text-[#f0f0f0] transition-colors">
               Sign in
             </Link>
-            <Link href="/buy" className="bg-[#e5322d] text-white px-4 py-1.5 rounded-md font-medium hover:bg-[#cc2d28] transition-colors">
+            <Link
+              href="/buy"
+              className="bg-[#e5322d] text-white px-4 py-1.5 rounded-md font-medium hover:bg-[#cc2d28] transition-colors"
+            >
               Get BellSense
             </Link>
           </div>
         </div>
       )}
 
-      <div className="grid sm:grid-cols-2 gap-4">
-        {programs.map((p) => {
-          const cardContent = (
-            <>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-[#9ca3af] uppercase tracking-wider">{p.difficulty}</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#9ca3af]">{p.weeks}wk · {p.sessionsPerWeek}×/wk</span>
-                  {!hasPurchased && (
-                    <span className="text-[#9ca3af] text-xs">🔒</span>
-                  )}
-                </div>
-              </div>
-              <h2 className="font-bold mb-1 group-hover:text-white transition-colors">{p.title}</h2>
-              <p className="text-[#9ca3af] text-sm">{p.bestFor}</p>
-            </>
-          )
-
-          if (hasPurchased) {
-            return (
-              <Link
-                key={p.slug}
-                href={`/programs/${p.slug}`}
-                className="group bg-white/5 border border-white/10 border-l-2 border-l-white/10 rounded-xl p-6 hover:border-l-[#e5322d] hover:bg-white/[0.07] transition-all duration-200"
-              >
-                {cardContent}
-              </Link>
-            )
-          }
-
-          return (
-            <div
-              key={p.slug}
-              className="bg-white/5 border border-white/10 rounded-xl p-6 opacity-60 cursor-not-allowed"
-            >
-              {cardContent}
-            </div>
-          )
-        })}
-        {programs.length === 0 && <p className="text-[#9ca3af]">Programs coming soon.</p>}
-      </div>
+      <ProgramsTabView programs={programs} hasPurchased={hasPurchased} />
     </div>
   )
 }
